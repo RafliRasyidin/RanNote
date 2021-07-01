@@ -4,6 +4,7 @@ import androidx.room.*
 import com.rasyidin.rannote.core.data.source.local.entity.note.NoteEntity
 import kotlinx.coroutines.flow.Flow
 
+@Dao
 interface NoteDao {
 
     @Query("SELECT * FROM note")
