@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RanNote</string>
+    <string name="btn_next">Next</string>
 </resources>

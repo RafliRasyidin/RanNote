@@ -2,6 +2,7 @@
 buildscript {
     ext.kotlin_version = "1.5.20"
     ext.hilt_version = '2.35'
+    ext.navigationVersion = '2.3.5'
     repositories {
         google()
         mavenCentral()
@@ -10,7 +11,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:4.2.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -21,8 +22,8 @@ ext {
     shimmerVersion = '0.5.0'
     lottieVersion = '3.7.0'
     glideVersion = '4.12.0'
-    navigationVersion = '2.3.5'
     pagingVersion = '3.0.0'
+    appIntroVersion = '6.1.0'
 
     //Core
     koinVersion = '3.0.1'
@@ -32,12 +33,14 @@ ext {
     okhttpVersion = '4.9.0'
     roomVersion = '2.3.0'
     hiltLifecycleVersion = '1.0.0-alpha03'
+
 }
 
 allprojects {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://jitpack.io' }
     }
 }
 
