@@ -17,6 +17,6 @@ class NoteActivity : BaseActivity<ActivityNoteBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.tvHallo.text = "Hello ${onBoardingPref.getUserOnBoardingPref().name}"
+        binding.tvHallo.text = "Hi, ${onBoardingPref.getUserOnBoardingPref().name}"
     }
 }

@@ -9,18 +9,11 @@ import com.github.appintro.AppIntro2
 import com.github.appintro.AppIntroFragment
 import com.rasyidin.rannote.R
 import com.rasyidin.rannote.core.domain.model.intro.IntroSlideData.DATA_SLIDE
-import com.rasyidin.rannote.core.domain.model.intro.UserPreference
 import com.rasyidin.rannote.ui.feature.note.NoteActivity
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class OnBoardingActivity : AppIntro2() {
-
-    @Inject
-    lateinit var onBoardingPreference: OnBoardingPreference
-
-    private val userOnBoarding = UserPreference(true, "Rafli")
 
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,18 +77,16 @@ class OnBoardingActivity : AppIntro2() {
             )
         )
 
+        addSlide(OnBoardingFragment.newInstance())
+
     }
 
     override fun onSkipPressed(currentFragment: Fragment?) {
-        super.onSkipPressed(currentFragment)
-        onBoardingPreference.saveOnBoarding(userOnBoarding)
-        val intent = Intent(this, NoteActivity::class.java)
-        startActivity(intent)
+        return
     }
 
     override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)
-        onBoardingPreference.saveOnBoarding(userOnBoarding)
         val intent = Intent(this, NoteActivity::class.java)
         startActivity(intent)
     }

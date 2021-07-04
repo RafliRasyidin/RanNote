@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">RanNote</string>
     <string name="btn_next">Next</string>
+    <string name="name_questions">How do we call you?</string>
+    <string name="hi">Hi!</string>
+    <string name="et_name_empty">Please fill your username first and click save</string>
+    <string name="btn_save">Save</string>
 </resources>
