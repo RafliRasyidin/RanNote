@@ -44,7 +44,7 @@ class OnBoardingActivity : AppIntro2() {
             AppIntroFragment.newInstance(
                 title = DATA_SLIDE[1].title,
                 description = DATA_SLIDE[1].desc,
-                imageDrawable = R.drawable.ic_note,
+                imageDrawable = R.drawable.img_note,
                 backgroundColor = ContextCompat.getColor(this, R.color.colorBackground),
                 titleColor = ContextCompat.getColor(this, R.color.colorBlackVariant),
                 ContextCompat.getColor(this, R.color.colorBlackVariant),
