@@ -56,7 +56,7 @@ class OnBoardingActivity : AppIntro2() {
             AppIntroFragment.newInstance(
                 title = DATA_SLIDE[2].title,
                 description = DATA_SLIDE[2].desc,
-                imageDrawable = R.drawable.ic_todo_list,
+                imageDrawable = R.drawable.img_todo_list,
                 backgroundColor = ContextCompat.getColor(this, R.color.colorBackground),
                 titleColor = ContextCompat.getColor(this, R.color.colorBlackVariant),
                 ContextCompat.getColor(this, R.color.colorBlackVariant),
@@ -68,7 +68,7 @@ class OnBoardingActivity : AppIntro2() {
             AppIntroFragment.newInstance(
                 title = DATA_SLIDE[3].title,
                 description = DATA_SLIDE[3].desc,
-                imageDrawable = R.drawable.ic_finance,
+                imageDrawable = R.drawable.img_finance,
                 backgroundColor = ContextCompat.getColor(this, R.color.colorBackground),
                 titleColor = ContextCompat.getColor(this, R.color.colorBlackVariant),
                 ContextCompat.getColor(this, R.color.colorBlackVariant),
