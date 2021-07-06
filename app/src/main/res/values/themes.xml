@@ -1,6 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.RanNote" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
@@ -12,5 +14,52 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="navigationViewStyle">@style/Widget.RanNote.NavigationView</item>
     </style>
+
+    <style name="Widget.RanNote.NavigationView" parent="Widget.MaterialComponents.NavigationView">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.RanNote.NavigationView</item>
+        <item name="android:background">@color/colorBackground</item>
+        <item name="itemIconTint">@color/nav_item_color</item>
+        <item name="itemTextColor">@color/nav_item_color</item>
+        <item name="itemShapeFillColor">@color/nav_item_bg_color</item>
+    </style>
+
+    <style name="ThemeOverlay.RanNote.NavigationView" parent="">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorSurface">@color/colorPrimaryVariant</item>
+        <item name="colorOnSurface">@color/colorAccent</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.App.Headline6</item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.App.Subtitle2</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.App.Body2</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
+    </style>
+
+    <style name="TextAppearance.App.Headline6" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/poppins_semibold</item>
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+    </style>
+
+    <style name="TextAppearance.App.Subtitle2" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/poppins_semibold</item>
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+    </style>
+
+    <style name="TextAppearance.App.Body2" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/poppins</item>
+        <item name="android:fontFamily">@font/poppins</item>
+    </style>
+
+    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">4dp</item>
+    </style>
+
+    <style name="Theme.RanNote.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="elevation">0dp</item>
+        <item name="android:background" tools:ignoe="NewApi">@color/colorBackground</item>
+        <item name="background">@color/colorBackground</item>
+    </style>
+
+    <style name="Theme.RanNote.PopupOverlay" parent="Theme.MaterialComponents.Light" />
 </resources>

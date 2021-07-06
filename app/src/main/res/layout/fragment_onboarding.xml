@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:text="@string/btn_save"
         android:layout_marginTop="8dp"
-        android:background="@drawable/bg_btn"
+        android:background="@drawable/bg_shape"
         android:backgroundTint="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="@+id/et_name"
         app:layout_constraintStart_toStartOf="@+id/et_name"

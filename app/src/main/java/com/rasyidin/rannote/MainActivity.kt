@@ -8,7 +8,7 @@ import com.rasyidin.rannote.databinding.ActivityMainBinding
 import com.rasyidin.rannote.ui.base.BaseActivity
 import com.rasyidin.rannote.ui.feature.intro.OnBoardingActivity
 import com.rasyidin.rannote.ui.feature.intro.OnBoardingPreference
-import com.rasyidin.rannote.ui.feature.note.NoteActivity
+import com.rasyidin.rannote.ui.feature.note.HomeActivity
 import com.rasyidin.rannote.ui.helper.Constants.SPLASH_DELAY
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -23,7 +23,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private val runnable = Runnable {
         val isAlreadyOnBoarding = onBoardingPreference.getUserOnBoardingPref().isAlreadyOnBoarding
         if (isAlreadyOnBoarding) {
-            Intent(this, NoteActivity::class.java).also {
+            Intent(this, HomeActivity::class.java).also {
                 startActivity(it)
             }
         } else {

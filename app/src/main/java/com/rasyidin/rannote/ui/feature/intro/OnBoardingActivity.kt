@@ -9,7 +9,7 @@ import com.github.appintro.AppIntro2
 import com.github.appintro.AppIntroFragment
 import com.rasyidin.rannote.R
 import com.rasyidin.rannote.core.domain.model.intro.IntroSlideData.DATA_SLIDE
-import com.rasyidin.rannote.ui.feature.note.NoteActivity
+import com.rasyidin.rannote.ui.feature.note.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -87,7 +87,7 @@ class OnBoardingActivity : AppIntro2() {
 
     override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)
-        val intent = Intent(this, NoteActivity::class.java)
+        val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
     }
 }
