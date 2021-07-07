@@ -33,7 +33,7 @@
         <item name="colorSurface">@color/colorPrimaryVariant</item>
         <item name="colorOnSurface">@color/colorAccent</item>
         <item name="textAppearanceHeadline6">@style/TextAppearance.App.Headline6</item>
-        <item name="textAppearanceSubtitle2">@style/TextAppearance.App.Subtitle2</item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.App.Subtitle1</item>
         <item name="textAppearanceBody2">@style/TextAppearance.App.Body2</item>
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
     </style>
@@ -43,7 +43,17 @@
         <item name="android:fontFamily">@font/poppins_semibold</item>
     </style>
 
-    <style name="TextAppearance.App.Subtitle2" parent="TextAppearance.MaterialComponents.Subtitle1">
+    <style name="TextAppearance.App.Headline5" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="fontFamily">@font/poppins_semibold</item>
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+    </style>
+
+    <style name="TextAppearance.App.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/poppins_semibold</item>
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+    </style>
+
+    <style name="TextAppearance.App.Subtitle2" parent="TextAppearance.MaterialComponents.Subtitle2">
         <item name="fontFamily">@font/poppins_semibold</item>
         <item name="android:fontFamily">@font/poppins_semibold</item>
     </style>
@@ -53,14 +63,43 @@
         <item name="android:fontFamily">@font/poppins</item>
     </style>
 
+    <style name="TextAppearance.App.Body3" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/poppins</item>
+        <item name="android:fontFamily">@font/poppins</item>
+    </style>
+
     <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
         <item name="cornerFamily">cut</item>
         <item name="cornerSize">4dp</item>
     </style>
 
+    <style name="TextAppearanceBold">
+        <item name="fontFamily">@font/poppins_semibold</item>
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextAppearanceBold.Title1">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextAppearanceRegular">
+        <item name="fontFamily">@font/poppins</item>
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:textColor">@color/colorBlackVariant</item>
+    </style>
+
+    <style name="TextAppearanceRegular.Subtitle1">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextAppearanceRegular.Subtitle2">
+        <item name="android:textSize">10sp</item>
+    </style>
+
     <!-- Burger icon color -->
     <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
-        <item name="color">@color/colorAccent</item>
+        <item name="color">@color/colorAccentVariant</item>
     </style>
 
     <style name="Theme.RanNote.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -71,4 +110,5 @@
     </style>
 
     <style name="Theme.RanNote.PopupOverlay" parent="Theme.MaterialComponents.Light" />
+
 </resources>

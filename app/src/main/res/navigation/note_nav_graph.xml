@@ -7,22 +7,18 @@
     <fragment
         android:id="@+id/noteFragment"
         android:name="com.rasyidin.rannote.ui.feature.note.NoteFragment"
-        android:label="fragment_note"
         tools:layout="@layout/fragment_note" />
     <fragment
         android:id="@+id/todoFragment"
         android:name="com.rasyidin.rannote.ui.feature.todo.TodoFragment"
-        android:label="fragment_todo"
         tools:layout="@layout/fragment_todo" />
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.rasyidin.rannote.ui.feature.setting.AboutFragment"
-        android:label="fragment_about"
         tools:layout="@layout/fragment_about" />
     <activity
         android:id="@+id/financeActivity"
         android:name="com.rasyidin.rannote.ui.feature.finance.FinanceActivity"
-        android:label="activity_finance"
         tools:layout="@layout/activity_finance" />
     <fragment
         android:id="@+id/settingFragment"
