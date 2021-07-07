@@ -1,4 +1,4 @@
-package com.rasyidin.rannote.ui.feature.intro
+package com.rasyidin.rannote.di
 
 import android.content.Context
 import com.rasyidin.rannote.core.domain.model.intro.UserPreference

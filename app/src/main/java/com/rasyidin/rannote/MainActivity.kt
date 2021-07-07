@@ -7,7 +7,7 @@ import android.os.Looper
 import com.rasyidin.rannote.databinding.ActivityMainBinding
 import com.rasyidin.rannote.ui.base.BaseActivity
 import com.rasyidin.rannote.ui.feature.intro.OnBoardingActivity
-import com.rasyidin.rannote.ui.feature.intro.OnBoardingPreference
+import com.rasyidin.rannote.di.OnBoardingPreference
 import com.rasyidin.rannote.ui.feature.note.HomeActivity
 import com.rasyidin.rannote.ui.helper.Constants.SPLASH_DELAY
 import dagger.hilt.android.AndroidEntryPoint
