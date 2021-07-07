@@ -5,18 +5,14 @@ import android.view.MenuItem
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.*
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.rasyidin.rannote.R
 import com.rasyidin.rannote.databinding.ActivityHomeBinding
 import com.rasyidin.rannote.ui.base.BaseActivity
-import com.rasyidin.rannote.di.OnBoardingPreference
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeActivity : BaseActivity<ActivityHomeBinding>() {
-
-    @Inject
-    lateinit var onBoardingPref: OnBoardingPreference
 
     private lateinit var navNoteController: NavController
 
@@ -26,20 +22,19 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        /*binding.tvHallo.text = "Hi, ${onBoardingPref.getUserOnBoardingPref().name}"*/
         setSupportActionBar(binding.appBarMain.toolbar)
         supportActionBar?.title = null
         binding.appBarMain.toolbar.elevation = 0F
 
-        binding.appBarMain.contentMain.botNavView.background = null
-        binding.appBarMain.contentMain.botNavView.menu.getItem(1).isEnabled = false
-
-        navNoteController = Navigation.findNavController(this, R.id.nav_host_fragment)
-        binding.appBarMain.contentMain.botNavView.setupWithNavController(navNoteController)
+        setupBotNavView()
 
         setupNavDrawable()
 
         setupActionBarWithNavController(navNoteController, appBarConfiguration)
+
+        binding.appBarMain.contentMain.fabAdd.setOnClickListener {
+            showAddDialog()
+        }
 
     }
 
@@ -65,6 +60,31 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
 
         binding.navView.setupWithNavController(navNoteController)
 
+    }
+
+    private fun setupBotNavView() {
+        binding.appBarMain.contentMain.botNavView.background = null
+        binding.appBarMain.contentMain.botNavView.menu.getItem(1).isEnabled = false
+
+        navNoteController = Navigation.findNavController(this, R.id.nav_host_fragment)
+        binding.appBarMain.contentMain.botNavView.setupWithNavController(navNoteController)
+    }
+
+    private fun showAddDialog() {
+        val action = arrayOf("Add Note", "Add To-do")
+        MaterialAlertDialogBuilder(this)
+            .setTitle(getString(R.string.title_add_dialog))
+            .setItems(action) { dialog, which ->
+                when (which) {
+                    0 -> {
+                        dialog.dismiss()
+                    }
+                    1 -> {
+                        dialog.dismiss()
+                    }
+                }
+            }
+            .show()
     }
 
 }
