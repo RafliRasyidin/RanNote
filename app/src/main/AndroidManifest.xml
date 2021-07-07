@@ -11,11 +11,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RanNote">
         <activity android:name=".ui.feature.finance.FinanceActivity" />
-        <activity
-            android:name=".ui.feature.note.HomeActivity" />
+        <activity android:name=".ui.feature.note.HomeActivity" />
         <activity android:name=".ui.feature.intro.OnBoardingActivity" />
         <activity
-            android:name=".MainActivity">
+            android:name=".MainActivity"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/note_nav_graph"
+    app:startDestination="@id/noteFragment">
+    <fragment
+        android:id="@+id/noteFragment"
+        android:name="com.rasyidin.rannote.ui.feature.note.NoteFragment"
+        android:label="fragment_note"
+        tools:layout="@layout/fragment_note" />
+    <fragment
+        android:id="@+id/todoFragment"
+        android:name="com.rasyidin.rannote.ui.feature.todo.TodoFragment"
+        android:label="fragment_todo"
+        tools:layout="@layout/fragment_todo" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.rasyidin.rannote.ui.feature.setting.AboutFragment"
+        android:label="fragment_about"
+        tools:layout="@layout/fragment_about" />
+    <activity
+        android:id="@+id/financeActivity"
+        android:name="com.rasyidin.rannote.ui.feature.finance.FinanceActivity"
+        android:label="activity_finance"
+        tools:layout="@layout/activity_finance" />
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.rasyidin.rannote.ui.feature.setting.SettingFragment"
+        android:label="SettingFragment" />
+</navigation>
