@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "note")
 data class NoteEntity(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     val id: Int = 0,
 
@@ -20,5 +20,5 @@ data class NoteEntity(
     val color: String? = "",
 
     @ColumnInfo(name = "date")
-    val date: String = ""
+    val date: String? = ""
 )

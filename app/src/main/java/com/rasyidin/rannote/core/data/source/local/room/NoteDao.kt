@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 interface NoteDao {
 
     @Query("SELECT * FROM note")
-    fun getAllNotes(): Flow<List<NoteEntity>>
+    fun getAllNotes(): List<NoteEntity>
 
     @Query("SELECT * FROM note WHERE title LIKE :query OR description LIKE :query")
     fun searchNoteByTitleOrDesc(query: String): Flow<List<NoteEntity>>
