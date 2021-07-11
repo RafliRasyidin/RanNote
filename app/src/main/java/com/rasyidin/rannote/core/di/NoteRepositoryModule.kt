@@ -4,6 +4,7 @@ import com.rasyidin.rannote.core.data.repository.NoteRepository
 import com.rasyidin.rannote.core.data.source.local.NoteLocalDataSource
 import com.rasyidin.rannote.core.data.source.local.room.NoteDao
 import com.rasyidin.rannote.core.data.source.local.room.RanNoteDatabase
+import com.rasyidin.rannote.core.domain.repository.INoteRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,6 +25,7 @@ object NoteRepositoryModule {
 
     @Provides
     @Singleton
-    fun providesNoteRepository(noteLocalDataSource: NoteLocalDataSource) = NoteRepository(noteLocalDataSource)
+    fun providesNoteRepository(noteLocalDataSource: NoteLocalDataSource): INoteRepository =
+        NoteRepository(noteLocalDataSource)
 
 }
