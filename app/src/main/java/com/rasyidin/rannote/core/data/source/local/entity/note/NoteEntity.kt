@@ -17,7 +17,7 @@ data class NoteEntity(
     val desc: String? = "",
 
     @ColumnInfo(name = "color")
-    val color: String? = "",
+    val color: String = "",
 
     @ColumnInfo(name = "date")
     val date: String? = ""

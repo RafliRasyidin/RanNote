@@ -8,6 +8,6 @@ data class Note(
     val id: Int = 0,
     val title: String? = "",
     val desc: String? = "",
-    val color: String? = "",
+    val color: String = "",
     val date: String? = ""
 ) : Parcelable

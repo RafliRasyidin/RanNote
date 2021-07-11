@@ -1,6 +1,5 @@
 package com.rasyidin.rannote.core.utils
 
-import androidx.paging.PagingData
 import com.rasyidin.rannote.core.data.source.local.entity.note.NoteEntity
 import com.rasyidin.rannote.core.domain.model.note.Note
 
