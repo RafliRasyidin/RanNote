@@ -10,6 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RanNote">
+        <activity android:name=".ui.feature.todo.AddUpdateTodoActivity" />
+        <activity android:name=".ui.feature.note.AddUpdateNoteActivity" />
         <activity android:name=".ui.feature.finance.FinanceActivity" />
         <activity android:name=".ui.feature.note.HomeActivity" />
         <activity android:name=".ui.feature.intro.OnBoardingActivity" />
