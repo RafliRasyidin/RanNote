@@ -25,7 +25,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         setSupportActionBar(binding.appBarMain.toolbar)
         supportActionBar?.title = null
         binding.appBarMain.toolbar.elevation = 0F
-
+        
         setupBotNavView()
 
         setupNavDrawable()
