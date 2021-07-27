@@ -61,6 +61,5 @@ class AddUpdateNoteActivity : BaseActivity<ActivityAddUpdateNoteBinding>() {
 
     companion object {
         const val NOTE = "note"
-        const val COLOR_THEME = "color_theme"
     }
 }
