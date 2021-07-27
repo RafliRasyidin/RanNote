@@ -17,6 +17,8 @@ abstract class BaseAdapter<T>(private val layoutId: Int) :
         notifyDataSetChanged()
     }
 
+    var onItemClickListener: ((T) -> Unit)? = null
+
     class BaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {

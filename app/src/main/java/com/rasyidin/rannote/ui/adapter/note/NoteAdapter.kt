@@ -1,12 +1,13 @@
 package com.rasyidin.rannote.ui.adapter.note
 
+import android.graphics.Color
 import androidx.recyclerview.widget.DiffUtil
 import com.rasyidin.rannote.R
 import com.rasyidin.rannote.core.domain.model.note.Note
 import com.rasyidin.rannote.databinding.ItemNoteBinding
 import com.rasyidin.rannote.ui.adapter.BasePagingAdapter
 
-class NoteAdapter: BasePagingAdapter<Note>(R.layout.item_note, DiffCallback)  {
+class NoteAdapter : BasePagingAdapter<Note>(R.layout.item_note, DiffCallback) {
 
     override fun onBindViewHolder(holder: PagingViewHolder, position: Int) {
         val note = getItem(position)
@@ -16,7 +17,7 @@ class NoteAdapter: BasePagingAdapter<Note>(R.layout.item_note, DiffCallback)  {
                 tvTitle.text = note.title
                 tvDesc.text = note.desc
                 tvDate.text = note.date
-                cardNote.setBackgroundColor(note.color.toInt())
+                cardNote.setBackgroundColor(Color.parseColor(if (note.color == "") "caffbf" else note.color))
             }
         }
     }
@@ -26,6 +27,7 @@ class NoteAdapter: BasePagingAdapter<Note>(R.layout.item_note, DiffCallback)  {
         override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean {
             return oldItem.id == newItem.id
         }
+
         override fun areContentsTheSame(oldItem: Note, newItem: Note): Boolean {
             return oldItem == newItem
         }

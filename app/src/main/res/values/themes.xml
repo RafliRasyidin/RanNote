@@ -83,6 +83,10 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="TextAppearanceBold.Title2">
+        <item name="android:textSize">20sp</item>
+    </style>
+
     <style name="TextAppearanceRegular">
         <item name="fontFamily">@font/poppins</item>
         <item name="android:fontFamily">@font/poppins</item>
@@ -95,6 +99,10 @@
 
     <style name="TextAppearanceRegular.Subtitle2">
         <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="TextAppearanceRegular.Subtitle3">
+        <item name="android:textSize">14sp</item>
     </style>
 
     <!-- Burger icon color -->
