@@ -37,11 +37,6 @@ class NoteRepository @Inject constructor(
         return noteLocalDataSource.saveNote(noteEntity)
     }
 
-    override suspend fun updateNote(note: Note) {
-        val noteEntity = note.toNoteEntity()
-        return noteLocalDataSource.updateNote(noteEntity)
-    }
-
     override suspend fun deleteNote(note: Note) {
         val noteEntity = note.toNoteEntity()
         return noteLocalDataSource.deleteNote(noteEntity)

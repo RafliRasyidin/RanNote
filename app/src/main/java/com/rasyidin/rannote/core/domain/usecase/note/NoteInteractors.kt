@@ -20,10 +20,6 @@ class NoteInteractors @Inject constructor(private val noteRepository: INoteRepos
         return noteRepository.saveNote(note)
     }
 
-    override suspend fun updateNote(note: Note) {
-        return noteRepository.updateNote(note)
-    }
-
     override suspend fun deleteNote(note: Note) {
         return noteRepository.deleteNote(note)
     }

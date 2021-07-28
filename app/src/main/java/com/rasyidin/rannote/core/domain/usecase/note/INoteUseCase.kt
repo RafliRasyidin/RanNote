@@ -12,7 +12,5 @@ interface INoteUseCase {
 
     suspend fun saveNote(note: Note)
 
-    suspend fun updateNote(note: Note)
-
     suspend fun deleteNote(note: Note)
 }
