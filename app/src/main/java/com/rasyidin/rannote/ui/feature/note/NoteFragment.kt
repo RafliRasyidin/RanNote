@@ -12,7 +12,6 @@ import androidx.lifecycle.distinctUntilChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.cachedIn
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -60,6 +59,8 @@ class NoteFragment : BaseFragment<FragmentNoteBinding>(FragmentNoteBinding::infl
         searchNote()
 
         navigateToDetail()
+
+        sortNotes()
     }
 
     override fun onResume() {
@@ -87,6 +88,62 @@ class NoteFragment : BaseFragment<FragmentNoteBinding>(FragmentNoteBinding::infl
         binding.tvHiUser.text = "Hi, $username!"
     }
 
+    private fun sortNotes() {
+        var isOrderByDateDesc = false
+        var isOrderByDateAsc = true
+        var isOrderByTitleAsc = false
+        var isOrderByTitleDesc = false
+        binding.imgSort.setOnClickListener {
+            when {
+                isOrderByDateDesc -> {
+                    viewModel.getAllNotesOrderByDateDesc().observe(viewLifecycleOwner) { notes ->
+                        lifecycleScope.launchWhenCreated {
+                            noteAdapter.submitData(notes)
+                        }
+                    }
+                    isOrderByDateDesc = false
+                    isOrderByDateAsc = true
+                    isOrderByTitleAsc = false
+                    isOrderByTitleDesc = false
+                }
+                isOrderByDateAsc -> {
+                    viewModel.getAllNotesOrderByDateAsc().observe(viewLifecycleOwner) { notes ->
+                        lifecycleScope.launchWhenCreated {
+                            noteAdapter.submitData(notes)
+                        }
+                    }
+                    isOrderByDateDesc = false
+                    isOrderByDateAsc = false
+                    isOrderByTitleAsc = true
+                    isOrderByTitleDesc = false
+                }
+                isOrderByTitleAsc -> {
+                    viewModel.getAllNotesOrderByTitleAsc().observe(viewLifecycleOwner) { notes ->
+                        lifecycleScope.launchWhenCreated {
+                            noteAdapter.submitData(notes)
+                        }
+                    }
+                    isOrderByDateDesc = false
+                    isOrderByDateAsc = false
+                    isOrderByTitleAsc = false
+                    isOrderByTitleDesc = true
+                }
+                isOrderByTitleDesc -> {
+                    viewModel.getAllNotesOrderByTitleDesc().observe(viewLifecycleOwner) { notes ->
+                        lifecycleScope.launchWhenCreated {
+                            noteAdapter.submitData(notes)
+                        }
+                    }
+                    isOrderByDateDesc = true
+                    isOrderByDateAsc = false
+                    isOrderByTitleAsc = false
+                    isOrderByTitleDesc = false
+                }
+
+            }
+        }
+    }
+
     private fun navigateToDetail() {
         noteAdapter.onItemClickListener = { note ->
             val args = Bundle().apply {
@@ -97,7 +154,7 @@ class NoteFragment : BaseFragment<FragmentNoteBinding>(FragmentNoteBinding::infl
     }
 
     private fun subscribeToObserver() {
-        viewModel.getAllNotes().observe(viewLifecycleOwner) { notes ->
+        viewModel.getAllNotesOrderByDateDesc().observe(viewLifecycleOwner) { notes ->
             lifecycleScope.launch {
                 noteAdapter.submitData(notes)
             }

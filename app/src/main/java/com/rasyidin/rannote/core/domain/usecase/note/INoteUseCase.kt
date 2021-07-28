@@ -6,7 +6,13 @@ import kotlinx.coroutines.flow.Flow
 
 interface INoteUseCase {
 
-    fun getAllNotes(): Flow<PagingData<Note>>
+    fun getAllNotesOrderByDateDesc(): Flow<PagingData<Note>>
+
+    fun getAllNotesOrderByDateAsc(): Flow<PagingData<Note>>
+
+    fun getAllNotesOrderByTitleDesc(): Flow<PagingData<Note>>
+
+    fun getAllNotesOrderByTitleAsc(): Flow<PagingData<Note>>
 
     fun searchNoteByTitleOrDesc(query: String): Flow<PagingData<Note>>
 

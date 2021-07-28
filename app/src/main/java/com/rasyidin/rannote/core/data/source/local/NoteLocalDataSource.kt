@@ -8,10 +8,28 @@ import javax.inject.Inject
 
 class NoteLocalDataSource @Inject constructor(private val noteDao: NoteDao) {
 
-    fun getAllNotes() = Pager(
+    fun getAllNotesOrderByDateDesc() = Pager(
         config = PagingConfig(10)
     ) {
-        noteDao.getAllNotes()
+        noteDao.getAllNotesOrderByDateDesc()
+    }
+
+    fun getAllNotesOrderByDateAsc() = Pager(
+        config = PagingConfig(10)
+    ) {
+        noteDao.getAllNotesOrderByDateAsc()
+    }
+
+    fun getAllNotesOrderByTitleAsc() = Pager(
+        config = PagingConfig(10)
+    ) {
+        noteDao.getAllNotesOrderByTitleAsc()
+    }
+
+    fun getAllNotesOrderByTitleDesc() = Pager(
+        config = PagingConfig(10)
+    ) {
+        noteDao.getAllNotesOrderByTitleDesc()
     }
 
     fun searchNoteByTitleOrDesc(query: String) = Pager(

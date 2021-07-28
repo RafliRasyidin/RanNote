@@ -8,8 +8,8 @@ import javax.inject.Inject
 
 class NoteInteractors @Inject constructor(private val noteRepository: INoteRepository) : INoteUseCase {
 
-    override fun getAllNotes(): Flow<PagingData<Note>> {
-        return noteRepository.getAllNotes()
+    override fun getAllNotesOrderByDateDesc(): Flow<PagingData<Note>> {
+        return noteRepository.getAllNotesOrderByDateDesc()
     }
 
     override fun searchNoteByTitleOrDesc(query: String): Flow<PagingData<Note>> {
@@ -18,6 +18,18 @@ class NoteInteractors @Inject constructor(private val noteRepository: INoteRepos
 
     override suspend fun saveNote(note: Note) {
         return noteRepository.saveNote(note)
+    }
+
+    override fun getAllNotesOrderByDateAsc(): Flow<PagingData<Note>> {
+        return noteRepository.getAllNotesOrderByDateAsc()
+    }
+
+    override fun getAllNotesOrderByTitleDesc(): Flow<PagingData<Note>> {
+        return noteRepository.getAllNotesOrderByTitleDesc()
+    }
+
+    override fun getAllNotesOrderByTitleAsc(): Flow<PagingData<Note>> {
+        return noteRepository.getAllNotesOrderByTitleAsc()
     }
 
     override suspend fun deleteNote(note: Note) {

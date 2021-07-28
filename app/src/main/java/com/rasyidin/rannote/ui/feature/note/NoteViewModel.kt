@@ -12,7 +12,13 @@ import javax.inject.Inject
 @HiltViewModel
 class NoteViewModel @Inject constructor(private val noteUseCase: INoteUseCase) : ViewModel() {
 
-    fun getAllNotes() = noteUseCase.getAllNotes().asLiveData()
+    fun getAllNotesOrderByDateDesc() = noteUseCase.getAllNotesOrderByDateDesc().asLiveData()
+
+    fun getAllNotesOrderByDateAsc() = noteUseCase.getAllNotesOrderByDateAsc().asLiveData()
+
+    fun getAllNotesOrderByTitleDesc() = noteUseCase.getAllNotesOrderByTitleDesc().asLiveData()
+
+    fun getAllNotesOrderByTitleAsc() = noteUseCase.getAllNotesOrderByTitleAsc().asLiveData()
 
     fun searchNotes(query: String) = noteUseCase.searchNoteByTitleOrDesc(query).asLiveData()
 
