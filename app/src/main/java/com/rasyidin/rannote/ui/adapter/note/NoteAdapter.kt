@@ -17,8 +17,13 @@ class NoteAdapter : BasePagingAdapter<Note>(R.layout.item_note, DiffCallback) {
                 tvTitle.text = note.title
                 tvDesc.text = note.desc
                 tvDate.text = note.date
-                cardNote.setBackgroundColor(Color.parseColor(if (note.color == "") "caffbf" else note.color))
+                cardNote.setCardBackgroundColor(Color.parseColor(if (note.color == "") "#caffbf" else note.color))
+
+                root.setOnClickListener {
+                    onItemClickListener?.invoke(note)
+                }
             }
+
         }
     }
 
