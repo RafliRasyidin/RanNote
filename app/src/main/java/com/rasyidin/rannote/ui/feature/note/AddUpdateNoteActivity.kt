@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.navArgs
@@ -65,17 +64,19 @@ class AddUpdateNoteActivity : BaseActivity<ActivityAddUpdateNoteBinding>() {
 
             override fun afterTextChanged(s: Editable?) {
                 timer?.cancel()
-                timer = object : CountDownTimer(1000, 1500) {
+                timer = object : CountDownTimer(5000, 10000) {
                     override fun onTick(millisUntilFinished: Long) {}
 
                     override fun onFinish() {
                         saveNote()
-                        Toast.makeText(this@AddUpdateNoteActivity, "Saved", Toast.LENGTH_SHORT).show()
                     }
                 }.start()
             }
         })
 
+        binding.imgBack.setOnClickListener {
+            finish()
+        }
     }
 
     @SuppressLint("Range")
@@ -86,6 +87,7 @@ class AddUpdateNoteActivity : BaseActivity<ActivityAddUpdateNoteBinding>() {
             binding.etDesc.setText(note.desc)
             binding.root.setBackgroundColor(Color.parseColor(note.color))
             note.id = note.id
+            themeColor.color = note.color
         } else {
             binding.root.setBackgroundColor(Color.parseColor(colorTheme[0].color))
         }
