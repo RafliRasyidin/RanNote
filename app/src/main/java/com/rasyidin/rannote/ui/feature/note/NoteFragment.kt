@@ -6,9 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.distinctUntilChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.cachedIn
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -20,6 +24,7 @@ import com.rasyidin.rannote.ui.adapter.note.NoteAdapter
 import com.rasyidin.rannote.ui.base.BaseFragment
 import com.rasyidin.rannote.ui.feature.note.AddUpdateNoteActivity.Companion.NOTE
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -28,9 +33,11 @@ class NoteFragment : BaseFragment<FragmentNoteBinding>(FragmentNoteBinding::infl
     @Inject
     lateinit var pref: OnBoardingPreference
 
-    private val viewModel: NoteVIewModel by viewModels()
+    private val viewModel: NoteViewModel by viewModels()
 
-    private lateinit var noteAdapter: NoteAdapter
+    private val noteAdapter: NoteAdapter by lazy {
+        NoteAdapter()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,11 +53,11 @@ class NoteFragment : BaseFragment<FragmentNoteBinding>(FragmentNoteBinding::infl
 
         setupAdapter()
 
+        subscribeToObserver()
+
         setUsername()
 
         searchNote()
-
-        subscribeToObserver()
 
         navigateToDetail()
     }
@@ -70,10 +77,8 @@ class NoteFragment : BaseFragment<FragmentNoteBinding>(FragmentNoteBinding::infl
     }
 
     private fun setupAdapter() = binding.rvNote.apply {
-        noteAdapter = NoteAdapter()
         layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         adapter = noteAdapter
-        setHasFixedSize(true)
     }
 
     @SuppressLint("SetTextI18n")
@@ -92,25 +97,34 @@ class NoteFragment : BaseFragment<FragmentNoteBinding>(FragmentNoteBinding::infl
     }
 
     private fun subscribeToObserver() {
-        viewModel.getAllNotes.observe(viewLifecycleOwner) { notes ->
-            lifecycleScope.launchWhenCreated {
+        viewModel.getAllNotes().observe(viewLifecycleOwner) { notes ->
+            lifecycleScope.launch {
                 noteAdapter.submitData(notes)
             }
         }
     }
 
     private fun searchNote() {
-        /*binding.svNote.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+        binding.svNote.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                viewModel.searchNotes(newText).observe(viewLifecycleOwner) {
-
+                if (newText.isEmpty()) {
+                    subscribeToObserver()
+                } else {
+                    viewModel.searchNotes(newText).cachedIn(lifecycleScope).distinctUntilChanged()
+                        .observe(viewLifecycleOwner) {
+                            lifecycleScope.launchWhenCreated {
+                                noteAdapter.submitData(it)
+                            }
+                        }
                 }
+                return true
             }
-        })*/
+        })
     }
 
     override fun onDestroyView() {
