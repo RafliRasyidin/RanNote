@@ -20,10 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:text="@string/hi"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:text="@string/hi" />
 
         <TextView
             android:id="@+id/tv_subtitle_hi_user"
@@ -31,10 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/subtitle_hi_user"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_hi_user" />
+            android:text="@string/subtitle_hi_user" />
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/sv_note"
@@ -44,9 +38,6 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/bg_shape"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_subtitle_hi_user"
             app:queryHint="@string/hint_search" />
 
         <ImageView
@@ -56,8 +47,6 @@
             android:layout_gravity="end"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sv_note"
             app:srcCompat="@drawable/ic_sort"
             app:tint="@color/colorAccent"
             tools:ignore="ContentDescription" />
@@ -67,11 +56,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="64dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/img_sort"
-            app:layout_constraintVertical_bias="0.0"
             tools:listitem="@layout/item_note" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
