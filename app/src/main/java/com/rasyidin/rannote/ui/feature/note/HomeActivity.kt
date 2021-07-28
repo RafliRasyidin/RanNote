@@ -5,11 +5,13 @@ import android.view.MenuItem
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.*
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.rasyidin.rannote.R
+import com.rasyidin.rannote.core.domain.model.note.Note
 import com.rasyidin.rannote.databinding.ActivityHomeBinding
 import com.rasyidin.rannote.ui.base.BaseActivity
-import com.rasyidin.rannote.ui.dialog.AddDialog
+import com.rasyidin.rannote.ui.feature.note.AddUpdateNoteActivity.Companion.NOTE
+import com.rasyidin.rannote.ui.feature.note.dialog.AddDialog
+import com.rasyidin.rannote.ui.feature.note.dialog.AddDialogListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,7 +28,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         setSupportActionBar(binding.appBarMain.toolbar)
         supportActionBar?.title = null
         binding.appBarMain.toolbar.elevation = 0F
-        
+
         setupBotNavView()
 
         setupNavDrawable()
@@ -34,7 +36,18 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         setupActionBarWithNavController(navNoteController, appBarConfiguration)
 
         binding.appBarMain.contentMain.fabAdd.setOnClickListener {
-            AddDialog(this).show()
+            AddDialog(this, object : AddDialogListener {
+                override fun navigateToAddDetailNote(note: Note) {
+                    val args = Bundle().apply {
+                        putParcelable(NOTE, note)
+                    }
+                    navNoteController.navigate(R.id.addUpdateNoteActivity, args)
+                }
+
+                override fun navigateToAddDetailTodo() {
+                    navNoteController.navigate(R.id.addUpdateTodoActivity)
+                }
+            }).show()
         }
 
     }

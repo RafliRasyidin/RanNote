@@ -1,4 +1,4 @@
-package com.rasyidin.rannote.ui.dialog
+package com.rasyidin.rannote.ui.feature.note.dialog
 
 import android.content.Context
 import android.content.Intent
@@ -8,14 +8,15 @@ import android.os.Bundle
 import android.view.ViewGroup
 import android.view.Window
 import androidx.appcompat.app.AppCompatDialog
+import com.rasyidin.rannote.core.domain.model.note.Note
 import com.rasyidin.rannote.databinding.AddDialogBinding
-import com.rasyidin.rannote.ui.feature.note.AddUpdateNoteActivity
 import com.rasyidin.rannote.ui.feature.todo.AddUpdateTodoActivity
 
-class AddDialog(context: Context) : AppCompatDialog(context) {
+class AddDialog(context: Context, private var onClickListener: AddDialogListener) : AppCompatDialog(context) {
 
     private var _binding: AddDialogBinding? = null
     private val binding get() = _binding!!
+    private val note: Note by lazy { Note() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,30 +35,31 @@ class AddDialog(context: Context) : AppCompatDialog(context) {
 
     private fun navigateToAddUpdateNoteFragment() {
         binding.tvAddNote.setOnClickListener {
-            val intent = Intent(context, AddUpdateNoteActivity::class.java)
-            context.startActivity(intent)
+            onClickListener.navigateToAddDetailNote(note)
             dismiss()
         }
 
         binding.imgNote.setOnClickListener {
-            val intent = Intent(context, AddUpdateNoteActivity::class.java)
-            context.startActivity(intent)
+            onClickListener.navigateToAddDetailNote(note)
             dismiss()
         }
     }
 
     private fun navigateToAddUpdateTodoFragment() {
         binding.tvAddTodo.setOnClickListener {
-            val intent = Intent(context, AddUpdateTodoActivity::class.java)
-            context.startActivity(intent)
+            onClickListener.navigateToAddDetailTodo()
             dismiss()
         }
 
         binding.imgTodo.setOnClickListener {
-            val intent = Intent(context, AddUpdateTodoActivity::class.java)
-            context.startActivity(intent)
+            onClickListener.navigateToAddDetailTodo()
             dismiss()
         }
     }
 
+}
+
+interface AddDialogListener {
+    fun navigateToAddDetailNote(note: Note)
+    fun navigateToAddDetailTodo()
 }

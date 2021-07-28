@@ -1,5 +1,6 @@
 package com.rasyidin.rannote.ui.feature.note
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -8,6 +9,7 @@ import android.text.TextWatcher
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.rasyidin.rannote.core.domain.model.note.ColorPicker
@@ -28,6 +30,8 @@ class AddUpdateNoteActivity : BaseActivity<ActivityAddUpdateNoteBinding>() {
 
     private var botSheetState = true
 
+    private val args: AddUpdateNoteActivityArgs by navArgs()
+
     private var themeColor: ColorPicker = ColorPicker()
 
     private var note: Note = Note()
@@ -42,6 +46,8 @@ class AddUpdateNoteActivity : BaseActivity<ActivityAddUpdateNoteBinding>() {
         super.onCreate(savedInstanceState)
         setSupportActionBar(binding.toolbar)
         supportActionBar?.title = null
+
+        checkArgs()
 
         setupBottomSheet()
 
@@ -70,6 +76,19 @@ class AddUpdateNoteActivity : BaseActivity<ActivityAddUpdateNoteBinding>() {
             }
         })
 
+    }
+
+    @SuppressLint("Range")
+    private fun checkArgs() {
+        note = args.note
+        if (note.id != 0) {
+            binding.etTitle.setText(note.title)
+            binding.etDesc.setText(note.desc)
+            binding.root.setBackgroundColor(Color.parseColor(note.color))
+            note.id = note.id
+        } else {
+            binding.root.setBackgroundColor(Color.parseColor(colorTheme[0].color))
+        }
     }
 
     private fun getNotesFromView() {
