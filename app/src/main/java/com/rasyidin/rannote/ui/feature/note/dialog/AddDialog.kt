@@ -1,7 +1,6 @@
 package com.rasyidin.rannote.ui.feature.note.dialog
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -10,9 +9,9 @@ import android.view.Window
 import androidx.appcompat.app.AppCompatDialog
 import com.rasyidin.rannote.core.domain.model.note.Note
 import com.rasyidin.rannote.databinding.AddDialogBinding
-import com.rasyidin.rannote.ui.feature.todo.AddUpdateTodoActivity
 
-class AddDialog(context: Context, private var onClickListener: AddDialogListener) : AppCompatDialog(context) {
+class AddDialog(context: Context, private var onClickListener: AddDialogListener) :
+    AppCompatDialog(context) {
 
     private var _binding: AddDialogBinding? = null
     private val binding get() = _binding!!
