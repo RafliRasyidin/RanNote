@@ -11,10 +11,15 @@ class NoteLocalDataSource @Inject constructor(private val noteDao: NoteDao) {
     fun getAllNotes() = Pager(
         config = PagingConfig(10)
     ) {
-        NotePagingSource(noteDao)
+        //NotePagingSource(noteDao)
+        noteDao.getAllNotes()
     }
 
-    fun searchNoteByTitleOrDesc(query: String) = noteDao.searchNoteByTitleOrDesc(query)
+    fun searchNoteByTitleOrDesc(query: String) = Pager(
+        config = PagingConfig(10)
+    ) {
+        noteDao.searchNoteByTitleOrDesc(query)
+    }
 
     suspend fun saveNote(note: NoteEntity) = noteDao.saveNote(note)
 

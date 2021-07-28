@@ -24,9 +24,11 @@ class NoteRepository @Inject constructor(
         }
     }
 
-    override fun searchNoteByTitleOrDesc(query: String): Flow<List<Note>> {
-        return noteLocalDataSource.searchNoteByTitleOrDesc(query).map { notesEntity ->
-            notesEntity.toNotes()
+    override fun searchNoteByTitleOrDesc(query: String): Flow<PagingData<Note>> {
+        return noteLocalDataSource.searchNoteByTitleOrDesc(query).flow.map { notesEntity ->
+            notesEntity.map {
+                it.toNote()
+            }
         }
     }
 

@@ -9,7 +9,7 @@ interface INoteRepository {
 
     fun getAllNotes(): Flow<PagingData<Note>>
 
-    fun searchNoteByTitleOrDesc(query: String): Flow<List<Note>>
+    fun searchNoteByTitleOrDesc(query: String): Flow<PagingData<Note>>
 
     suspend fun saveNote(note: Note)
 

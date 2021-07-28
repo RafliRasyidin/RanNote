@@ -12,7 +12,7 @@ class NoteInteractors @Inject constructor(private val noteRepository: INoteRepos
         return noteRepository.getAllNotes()
     }
 
-    override fun searchNoteByTitleOrDesc(query: String): Flow<List<Note>> {
+    override fun searchNoteByTitleOrDesc(query: String): Flow<PagingData<Note>> {
         return noteRepository.searchNoteByTitleOrDesc(query)
     }
 

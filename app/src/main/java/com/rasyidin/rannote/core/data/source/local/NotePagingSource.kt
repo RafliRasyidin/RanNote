@@ -6,6 +6,7 @@ import com.rasyidin.rannote.core.data.source.local.entity.note.NoteEntity
 import com.rasyidin.rannote.core.data.source.local.room.NoteDao
 import okio.IOException
 
+/*
 class NotePagingSource(private val noteDao: NoteDao) : PagingSource<Int, NoteEntity>() {
 
     private companion object {
@@ -29,4 +30,4 @@ class NotePagingSource(private val noteDao: NoteDao) : PagingSource<Int, NoteEnt
     }
 
     override fun getRefreshKey(state: PagingState<Int, NoteEntity>): Int? = null
-}
+}*/
