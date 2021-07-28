@@ -5,9 +5,6 @@ import android.content.Intent
 import android.content.Intent.*
 import android.graphics.Color
 import android.os.Bundle
-import android.os.CountDownTimer
-import android.text.Editable
-import android.text.TextWatcher
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -23,6 +20,7 @@ import com.rasyidin.rannote.ui.adapter.note.ColorAdapter
 import com.rasyidin.rannote.ui.base.BaseActivity
 import com.rasyidin.rannote.ui.helper.getCurrentDate
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Singleton
 
 @AndroidEntryPoint
 class AddUpdateNoteActivity : BaseActivity<ActivityAddUpdateNoteBinding>() {
@@ -37,8 +35,10 @@ class AddUpdateNoteActivity : BaseActivity<ActivityAddUpdateNoteBinding>() {
 
     private val args: AddUpdateNoteActivityArgs by navArgs()
 
+    @Singleton
     private var themeColor: ColorPicker = ColorPicker()
 
+    @Singleton
     private var note: Note = Note()
 
     private val colorAdapter: ColorAdapter by lazy {
@@ -64,26 +64,6 @@ class AddUpdateNoteActivity : BaseActivity<ActivityAddUpdateNoteBinding>() {
 
         shareNote()
 
-        binding.etDesc.addTextChangedListener(object : TextWatcher {
-            var timer: CountDownTimer? = null
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                timer?.cancel()
-                timer = object : CountDownTimer(5000, 10000) {
-                    override fun onTick(millisUntilFinished: Long) {}
-
-                    override fun onFinish() {
-                        saveNote()
-                    }
-                }.start()
-            }
-        })
-
         binding.imgBack.setOnClickListener {
             finish()
         }
@@ -95,11 +75,37 @@ class AddUpdateNoteActivity : BaseActivity<ActivityAddUpdateNoteBinding>() {
         if (note.id != 0) {
             binding.etTitle.setText(note.title)
             binding.etDesc.setText(note.desc)
-            binding.root.setBackgroundColor(Color.parseColor(note.color))
+            setNoteColor(note)
+
             note.id = note.id
-            themeColor.color = note.color
+            themeColor.colorCard = note.colorCard
+            themeColor.colorTitle = note.colorTitle
+            themeColor.colorDesc = note.colorDesc
         } else {
-            binding.root.setBackgroundColor(Color.parseColor(colorTheme[0].color))
+            binding.apply {
+                root.setBackgroundColor(Color.parseColor(colorTheme[0].colorCard))
+                etTitle.setTextColor(Color.parseColor(colorTheme[0].colorTitle))
+                etDesc.setTextColor(Color.parseColor(colorTheme[0].colorDesc))
+            }
+
+        }
+    }
+
+    @SuppressLint("Range")
+    private fun setNoteColor(note: Note) {
+        binding.apply {
+            etDesc.setTextColor(Color.parseColor(note.colorDesc))
+            root.setBackgroundColor(Color.parseColor(note.colorCard))
+            etTitle.setTextColor(Color.parseColor(note.colorTitle))
+        }
+    }
+
+    @SuppressLint("Range")
+    private fun setNoteColor(note: ColorPicker) {
+        binding.apply {
+            etDesc.setTextColor(Color.parseColor(note.colorDesc))
+            root.setBackgroundColor(Color.parseColor(note.colorCard))
+            etTitle.setTextColor(Color.parseColor(note.colorTitle))
         }
     }
 
@@ -107,7 +113,9 @@ class AddUpdateNoteActivity : BaseActivity<ActivityAddUpdateNoteBinding>() {
         note.apply {
             title = binding.etTitle.text.toString()
             desc = binding.etDesc.text.toString()
-            color = themeColor.color
+            colorCard = themeColor.colorCard
+            colorTitle = themeColor.colorTitle
+            colorDesc = themeColor.colorDesc
             date = getCurrentDate()
         }
     }
@@ -136,8 +144,10 @@ class AddUpdateNoteActivity : BaseActivity<ActivityAddUpdateNoteBinding>() {
                 botSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
                 botSheetState = false
                 colorAdapter.onItemClickListener = { colorPicker ->
-                    binding.root.setBackgroundColor(Color.parseColor(colorPicker.color))
-                    themeColor.color = colorPicker.color
+                    setNoteColor(colorPicker)
+                    themeColor.colorCard = colorPicker.colorCard
+                    themeColor.colorTitle = colorPicker.colorTitle
+                    themeColor.colorDesc = colorPicker.colorDesc
                 }
             } else {
                 botSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
@@ -187,7 +197,7 @@ class AddUpdateNoteActivity : BaseActivity<ActivityAddUpdateNoteBinding>() {
         val isDescEmpty = note.desc.isNullOrEmpty()
         if (isTitleEmpty && isDescEmpty) {
             return
-        } else if (isDeleted){
+        } else if (isDeleted) {
             return
         } else {
             saveNote()

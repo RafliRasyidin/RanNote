@@ -8,6 +8,8 @@ data class Note(
     var id: Int = 0,
     var title: String? = "",
     var desc: String? = "",
-    var color: String = "",
+    var colorCard: String = "",
+    var colorTitle: String = "",
+    var colorDesc: String = "",
     var date: String? = ""
 ) : Parcelable

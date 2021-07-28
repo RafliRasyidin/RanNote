@@ -7,7 +7,9 @@ fun NoteEntity.toNote() = Note(
     id = this.id,
     title = this.title,
     desc = this.desc,
-    color = this.color,
+    colorCard = this.colorCard,
+    colorTitle = this.colorTitle,
+    colorDesc = this.colorDesc,
     date = this.date
 )
 
@@ -15,7 +17,9 @@ fun Note.toNoteEntity() = NoteEntity(
     id = this.id,
     title = this.title,
     desc = this.desc,
-    color = this.color,
+    colorCard = this.colorCard,
+    colorTitle = this.colorTitle,
+    colorDesc = this.colorDesc,
     date = this.date
 )
 
@@ -27,7 +31,9 @@ fun List<NoteEntity>.toNotes(): List<Note> {
             id = it.id,
             title = it.title,
             desc = it.desc,
-            color = it.color,
+            colorCard = it.colorCard,
+            colorTitle = it.colorTitle,
+            colorDesc = it.colorDesc,
             date = it.date
         )
         notes.add(note)
