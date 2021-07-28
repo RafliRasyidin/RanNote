@@ -138,6 +138,19 @@ class AddUpdateNoteActivity : BaseActivity<ActivityAddUpdateNoteBinding>() {
         botSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
     }
 
+    override fun onStop() {
+        super.onStop()
+        getNotesFromView()
+        val isTitleEmpty = note.title.isNullOrEmpty()
+        val isDescEmpty = note.desc.isNullOrEmpty()
+        if (isTitleEmpty && isDescEmpty) {
+            return
+        } else {
+            saveNote()
+        }
+
+    }
+
     companion object {
         const val NOTE = "note"
     }
