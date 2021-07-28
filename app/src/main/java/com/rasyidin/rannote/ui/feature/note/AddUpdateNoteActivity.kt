@@ -1,16 +1,20 @@
 package com.rasyidin.rannote.ui.feature.note
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.content.Intent.*
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.rasyidin.rannote.R
 import com.rasyidin.rannote.core.domain.model.note.ColorPicker
 import com.rasyidin.rannote.core.domain.model.note.Note
 import com.rasyidin.rannote.core.utils.Constants.colorTheme
@@ -57,6 +61,8 @@ class AddUpdateNoteActivity : BaseActivity<ActivityAddUpdateNoteBinding>() {
         selectThemeColor()
 
         deleteNote()
+
+        shareNote()
 
         binding.etDesc.addTextChangedListener(object : TextWatcher {
             var timer: CountDownTimer? = null
@@ -152,6 +158,26 @@ class AddUpdateNoteActivity : BaseActivity<ActivityAddUpdateNoteBinding>() {
     private fun setupBottomSheet() {
         botSheetBehavior = BottomSheetBehavior.from(binding.botSheet)
         botSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+    }
+
+    private fun shareNote() {
+        binding.imgShare.setOnClickListener {
+            getNotesFromView()
+            if (note.title.isNullOrEmpty() || note.desc.isNullOrEmpty()) {
+                Toast.makeText(this, getString(R.string.empty_message), Toast.LENGTH_SHORT).show()
+            } else {
+                val sendIntent = Intent().apply {
+                    action = ACTION_SEND
+                    type = "text/plain"
+                    putExtra(EXTRA_TEXT, note.desc)
+                    putExtra(EXTRA_TITLE, note.title)
+                }
+
+                val shareIntent = createChooser(sendIntent, null)
+                startActivity(shareIntent)
+            }
+
+        }
     }
 
     override fun onStop() {
