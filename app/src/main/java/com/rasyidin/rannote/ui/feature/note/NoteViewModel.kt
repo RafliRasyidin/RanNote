@@ -25,4 +25,8 @@ class NoteViewModel @Inject constructor(private val noteUseCase: INoteUseCase) :
     fun saveNote(note: Note) = viewModelScope.launch {
         noteUseCase.saveNote(note)
     }
+
+    fun deleteNote(note: Note) = viewModelScope.launch {
+        noteUseCase.deleteNote(note)
+    }
 }

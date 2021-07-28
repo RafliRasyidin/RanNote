@@ -29,6 +29,8 @@ class AddUpdateNoteActivity : BaseActivity<ActivityAddUpdateNoteBinding>() {
 
     private var botSheetState = true
 
+    private var isDeleted = false
+
     private val args: AddUpdateNoteActivityArgs by navArgs()
 
     private var themeColor: ColorPicker = ColorPicker()
@@ -53,6 +55,8 @@ class AddUpdateNoteActivity : BaseActivity<ActivityAddUpdateNoteBinding>() {
         setupAdapter()
 
         selectThemeColor()
+
+        deleteNote()
 
         binding.etDesc.addTextChangedListener(object : TextWatcher {
             var timer: CountDownTimer? = null
@@ -107,7 +111,17 @@ class AddUpdateNoteActivity : BaseActivity<ActivityAddUpdateNoteBinding>() {
         lifecycleScope.launchWhenCreated {
             noteViewModel.saveNote(note)
         }
+    }
 
+    private fun deleteNote() {
+        binding.imgDelete.setOnClickListener {
+            getNotesFromView()
+            lifecycleScope.launchWhenCreated {
+                noteViewModel.deleteNote(note)
+                isDeleted = true
+            }
+            finish()
+        }
     }
 
     private fun selectThemeColor() {
@@ -147,10 +161,11 @@ class AddUpdateNoteActivity : BaseActivity<ActivityAddUpdateNoteBinding>() {
         val isDescEmpty = note.desc.isNullOrEmpty()
         if (isTitleEmpty && isDescEmpty) {
             return
+        } else if (isDeleted){
+            return
         } else {
             saveNote()
         }
-
     }
 
     companion object {

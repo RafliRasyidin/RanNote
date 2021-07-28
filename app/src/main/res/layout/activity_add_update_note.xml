@@ -33,12 +33,12 @@
                     tools:ignore="ContentDescription" />
 
                 <ImageView
-                    android:id="@+id/img_save"
+                    android:id="@+id/img_delete"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="end"
                     android:layout_marginEnd="16dp"
-                    app:srcCompat="@drawable/ic_save_diskette"
+                    app:srcCompat="@drawable/ic_delete"
                     tools:ignore="ContentDescription" />
 
                 <ImageView
@@ -48,6 +48,15 @@
                     android:layout_gravity="end"
                     android:layout_marginEnd="16dp"
                     app:srcCompat="@drawable/ic_color_pallete"
+                    tools:ignore="ContentDescription" />
+
+                <ImageView
+                    android:id="@+id/ic_share"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="16dp"
+                    app:srcCompat="@drawable/ic_share"
                     tools:ignore="ContentDescription" />
 
             </com.google.android.material.appbar.MaterialToolbar>
