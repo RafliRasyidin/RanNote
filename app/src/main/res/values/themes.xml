@@ -29,6 +29,23 @@
         <item name="itemShapeFillColor">@color/nav_item_bg_color</item>
     </style>
 
+    <!-- Material Button Priority-->
+    <style name="Widget.RanNote.ButtonPriority" parent="Widget.MaterialComponents.Button">
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="backgroundTint">@color/white</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="cornerRadius">10dp</item>
+    </style>
+
+    <!-- Material Button Category-->
+    <style name="Widget.RanNote.ButtonCategory" parent="Widget.MaterialComponents.Button">
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="backgroundTint">@color/white</item>
+        <item name="cornerRadius">10dp</item>
+        <item name="strokeWidth">2dp</item>
+    </style>
+
     <style name="ThemeOverlay.RanNote.NavigationView" parent="">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorSurface">@color/colorPrimaryVariant</item>

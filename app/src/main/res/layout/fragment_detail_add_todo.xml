@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.feature.todo.DetailAddTodoFragment">
+
+    <ImageView
+        android:id="@+id/img_back"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="@id/guideline2"
+        app:layout_constraintHeight_percent=".5"
+        app:layout_constraintStart_toStartOf="@id/guideline1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent=".5"
+        app:srcCompat="@drawable/ic_back"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/label_new_task"
+        style="@style/TextAppearance.App.Headline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/label_create_new_task"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img_back" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/et_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:hint="@string/hint_task_name"
+        app:boxBackgroundColor="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/label_new_task">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/et_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:hint="@string/hint_task_description"
+        app:boxBackgroundColor="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_title">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageButton
+        android:id="@+id/img_date"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/ic_calendar"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@+id/tv_date"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_desc"
+        app:layout_constraintWidth_percent=".1"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/tv_date"
+        style="@style/TextAppearance.App.Body2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/img_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/img_date"
+        app:layout_constraintTop_toTopOf="@id/img_date"
+        tools:text="Friday, 24 Feb 2019" />
+
+    <ImageButton
+        android:id="@+id/img_time"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/ic_clock"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="@+id/img_date"
+        app:layout_constraintTop_toBottomOf="@id/img_date"
+        app:layout_constraintWidth_percent=".1"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        style="@style/TextAppearance.App.Body2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/img_time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.11"
+        app:layout_constraintStart_toEndOf="@id/img_time"
+        app:layout_constraintTop_toTopOf="@id/img_time"
+        app:layout_constraintVertical_bias="0.421"
+        tools:text="10.00 - 12.00 AM" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch_notification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="@id/img_time"
+        app:layout_constraintTop_toBottomOf="@id/img_time"
+        app:layout_constraintWidth_percent=".1" />
+
+    <TextView
+        android:id="@+id/label_remind_me"
+        style="@style/TextAppearance.App.Body2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/label_remind_me"
+        app:layout_constraintBottom_toBottomOf="@id/switch_notification"
+        app:layout_constraintStart_toEndOf="@id/switch_notification"
+        app:layout_constraintTop_toTopOf="@id/switch_notification" />
+
+    <TextView
+        android:id="@+id/label_priority"
+        style="@style/TextAppearance.App.Subtitle1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/label_priority"
+        app:layout_constraintStart_toStartOf="@id/guideline1"
+        app:layout_constraintTop_toBottomOf="@id/switch_notification" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_priority_low"
+        style="@style/Widget.RanNote.ButtonPriority"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/low"
+        app:layout_constraintDimensionRatio="2:1"
+        app:layout_constraintEnd_toStartOf="@+id/btn_priority_medium"
+        app:layout_constraintHeight_percent=".075"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/label_priority"
+        app:strokeColor="@color/green" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_priority_medium"
+        style="@style/Widget.RanNote.ButtonPriority"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/medium"
+        app:layout_constraintBottom_toBottomOf="@id/btn_priority_low"
+        app:layout_constraintDimensionRatio="2:1"
+        app:layout_constraintEnd_toStartOf="@+id/btn_priority_high"
+        app:layout_constraintHeight_percent=".075"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_priority_low"
+        app:layout_constraintTop_toTopOf="@id/btn_priority_low"
+        app:strokeColor="@color/orange" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_priority_high"
+        style="@style/Widget.RanNote.ButtonPriority"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/high"
+        app:layout_constraintBottom_toBottomOf="@id/btn_priority_medium"
+        app:layout_constraintDimensionRatio="2:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".075"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_priority_medium"
+        app:layout_constraintTop_toTopOf="@id/btn_priority_medium"
+        app:strokeColor="@color/red" />
+
+    <TextView
+        android:id="@+id/label_category"
+        style="@style/TextAppearance.App.Subtitle1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/label_category"
+        app:layout_constraintStart_toStartOf="@id/label_priority"
+        app:layout_constraintTop_toBottomOf="@id/btn_priority_low" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_category_work"
+        style="@style/Widget.RanNote.ButtonCategory"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/work"
+        android:textColor="@color/textColorWork"
+        app:layout_constraintDimensionRatio="2:1"
+        app:layout_constraintEnd_toStartOf="@+id/btn_category_family"
+        app:layout_constraintHeight_percent=".075"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/label_category"
+        app:strokeColor="@color/colorButtonWork" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_category_family"
+        style="@style/Widget.RanNote.ButtonCategory"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/family"
+        android:textColor="@color/textColorFamily"
+        app:layout_constraintBottom_toBottomOf="@id/btn_category_work"
+        app:layout_constraintDimensionRatio="2:1"
+        app:layout_constraintEnd_toStartOf="@+id/btn_category_school"
+        app:layout_constraintHeight_percent=".075"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_category_work"
+        app:layout_constraintTop_toTopOf="@id/btn_category_work"
+        app:strokeColor="@color/colorButtonFamily" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_category_school"
+        style="@style/Widget.RanNote.ButtonCategory"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/school"
+        android:textColor="@color/textColorSchool"
+        app:layout_constraintBottom_toBottomOf="@id/btn_category_family"
+        app:layout_constraintDimensionRatio="2:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".075"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_category_family"
+        app:layout_constraintTop_toTopOf="@id/btn_category_family"
+        app:strokeColor="@color/colorButtonSchool" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_create_task"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/create_task"
+        app:backgroundTint="@color/colorAccent"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".11" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

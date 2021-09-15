@@ -29,4 +29,17 @@
     <string name="description_hint">Description</string>
     <string name="empty_message">Title or Description is Empty</string>
     <string name="subtitle_hi_user_todo">Let\'s be Productive!</string>
+    <string name="label_create_new_task">Create New Task</string>
+    <string name="hint_task_name">Task Name</string>
+    <string name="hint_task_description">Task Description</string>
+    <string name="label_remind_me">Remind Me</string>
+    <string name="label_priority">Priority</string>
+    <string name="low">Low</string>
+    <string name="medium">Medium</string>
+    <string name="high">High</string>
+    <string name="label_category">Category</string>
+    <string name="work">Work</string>
+    <string name="family">Family</string>
+    <string name="school">School</string>
+    <string name="create_task">Create Task</string>
 </resources>
