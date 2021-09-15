@@ -2,7 +2,7 @@ package com.rasyidin.rannote.core.data.repository
 
 import androidx.paging.PagingData
 import androidx.paging.map
-import com.rasyidin.rannote.core.data.source.local.NoteLocalDataSource
+import com.rasyidin.rannote.core.data.source.local.note.NoteLocalDataSource
 import com.rasyidin.rannote.core.domain.model.note.Note
 import com.rasyidin.rannote.core.domain.repository.INoteRepository
 import com.rasyidin.rannote.core.utils.toNote
