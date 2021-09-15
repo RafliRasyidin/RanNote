@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/RASYIDIN/AndroidStudioProjects/AndroidProject/RanNote/app/src/main/res/drawable/bg_black_outlined_circle.xml" value="0.1" />
+        <entry key="..\:/Users/RASYIDIN/AndroidStudioProjects/AndroidProject/RanNote/app/src/main/res/layout/activity_add_update_note.xml" value="0.2" />
+        <entry key="..\:/Users/RASYIDIN/AndroidStudioProjects/AndroidProject/RanNote/app/src/main/res/layout/activity_add_update_todo.xml" value="0.1" />
+        <entry key="..\:/Users/RASYIDIN/AndroidStudioProjects/AndroidProject/RanNote/app/src/main/res/layout/fragment_note.xml" value="0.12386018237082067" />
+        <entry key="..\:/Users/RASYIDIN/AndroidStudioProjects/AndroidProject/RanNote/app/src/main/res/layout/fragment_todo.xml" value="0.2" />
+        <entry key="..\:/Users/RASYIDIN/AndroidStudioProjects/AndroidProject/RanNote/app/src/main/res/layout/item_list_note.xml" value="0.23233695652173914" />
+        <entry key="..\:/Users/RASYIDIN/AndroidStudioProjects/AndroidProject/RanNote/app/src/main/res/layout/item_list_todo.xml" value="0.264" />
+        <entry key="..\:/Users/RASYIDIN/AndroidStudioProjects/AndroidProject/RanNote/app/src/main/res/layout/item_todo.xml" value="0.18704710144927536" />
+      </map>
+    </option>
+  </component>
   <component name="EntryPointsManager">
     <list size="1">
       <item index="0" class="java.lang.String" itemvalue="dagger.hilt.android.HiltAndroidApp" />
