@@ -1,4 +1,4 @@
-package com.rasyidin.rannote.core.data.source.local
+package com.rasyidin.rannote.core.data.source.local.note
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig

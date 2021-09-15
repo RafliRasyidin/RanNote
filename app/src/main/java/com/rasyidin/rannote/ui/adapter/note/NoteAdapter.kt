@@ -5,15 +5,15 @@ import android.graphics.Color
 import androidx.recyclerview.widget.DiffUtil
 import com.rasyidin.rannote.R
 import com.rasyidin.rannote.core.domain.model.note.Note
-import com.rasyidin.rannote.databinding.ItemNoteBinding
+import com.rasyidin.rannote.databinding.ItemListNoteBinding
 import com.rasyidin.rannote.ui.adapter.BasePagingAdapter
 
-class NoteAdapter : BasePagingAdapter<Note>(R.layout.item_note, DiffCallback) {
+class NoteAdapter : BasePagingAdapter<Note>(R.layout.item_list_note, DiffCallback) {
 
     @SuppressLint("Range")
     override fun onBindViewHolder(holder: PagingViewHolder, position: Int) {
         val note = getItem(position)
-        val binding = ItemNoteBinding.bind(holder.itemView)
+        val binding = ItemListNoteBinding.bind(holder.itemView)
         with(binding) {
             note?.let { note ->
                 tvTitle.text = note.title
