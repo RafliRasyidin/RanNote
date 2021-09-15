@@ -8,4 +8,13 @@
     <color name="colorBackground">#F7F7F7</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="green">#55db30</color>
+    <color name="orange">#fc940b</color>
+    <color name="red">#ff4545</color>
+    <color name="textColorWork">#b84f4f</color>
+    <color name="colorButtonWork">#ffadad</color>
+    <color name="textColorFamily">#b8884f</color>
+    <color name="colorButtonFamily">#ffd6a5</color>
+    <color name="textColorSchool">#b5b84f</color>
+    <color name="colorButtonSchool">#fdffb6</color>
 </resources>
