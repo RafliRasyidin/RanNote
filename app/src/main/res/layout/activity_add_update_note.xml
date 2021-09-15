@@ -66,29 +66,30 @@
                 style="@style/TextAppearanceBold.Title2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/toolbar"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:autofillHints="Title"
                 android:background="@android:color/transparent"
                 android:hint="@string/title_hint"
-                android:inputType="text" />
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
             <EditText
                 android:id="@+id/et_desc"
                 style="@style/TextAppearanceRegular.Subtitle3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/et_title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:autofillHints="Description"
                 android:background="@android:color/transparent"
-                android:hint="@string/description_hint" />
+                android:hint="@string/description_hint"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_title" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
@@ -113,7 +114,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/item_color" />
+            tools:listitem="@layout/item_list_color" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
