@@ -2,9 +2,6 @@ package com.rasyidin.rannote.core.di
 
 import android.content.Context
 import androidx.room.Room
-import com.rasyidin.rannote.core.data.repository.NoteRepository
-import com.rasyidin.rannote.core.data.source.local.NoteLocalDataSource
-import com.rasyidin.rannote.core.data.source.local.room.NoteDao
 import com.rasyidin.rannote.core.data.source.local.room.RanNoteDatabase
 import com.rasyidin.rannote.core.utils.Constants.DATABASE_NAME
 import dagger.Module
