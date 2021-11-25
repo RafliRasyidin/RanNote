@@ -4,9 +4,14 @@ import com.rasyidin.rannote.core.domain.model.note.ColorPicker
 
 object Constants {
 
+    const val DATE_DESC = "DateDesc"
+    const val DATE_ASC = "DateAsc"
+    const val TITLE_DESC = "TitleDesc"
+    const val TITLE_ASC = "TitleAsc"
+
     const val DATABASE_NAME = "ran_note.db"
 
-    val colorTheme = listOf(
+    val colorTheme = arrayListOf(
         // RED
         ColorPicker(
             "#ffadad",
