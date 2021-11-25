@@ -1,4 +1,4 @@
-package com.rasyidin.rannote.core.data.source.local.room
+package com.rasyidin.rannote.core.data.source.local.room.dao
 
 import androidx.paging.PagingSource
 import androidx.room.*
@@ -19,7 +19,7 @@ interface NoteDao {
     @Query("SELECT * FROM note ORDER BY title DESC")
     fun getAllNotesOrderByTitleDesc(): PagingSource<Int, NoteEntity>
 
-    @Query("SELECT * FROM note WHERE :query LIKE title OR :query LIKE description")
+    @Query("SELECT * FROM note WHERE title LIKE :query OR description LIKE :query")
     fun searchNoteByTitleOrDesc(query: String): PagingSource<Int, NoteEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
