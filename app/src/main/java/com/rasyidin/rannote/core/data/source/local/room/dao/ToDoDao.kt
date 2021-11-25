@@ -1,4 +1,4 @@
-package com.rasyidin.rannote.core.data.source.local.room
+package com.rasyidin.rannote.core.data.source.local.room.dao
 
 import androidx.paging.PagingSource
 import androidx.room.*

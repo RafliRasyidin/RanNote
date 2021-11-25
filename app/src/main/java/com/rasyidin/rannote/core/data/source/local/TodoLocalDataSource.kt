@@ -1,9 +1,9 @@
-package com.rasyidin.rannote.core.data.source.local.todo
+package com.rasyidin.rannote.core.data.source.local
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.rasyidin.rannote.core.data.source.local.entity.todo.TodoEntity
-import com.rasyidin.rannote.core.data.source.local.room.ToDoDao
+import com.rasyidin.rannote.core.data.source.local.room.dao.ToDoDao
 import javax.inject.Inject
 
 class TodoLocalDataSource @Inject constructor(private val toDoDao: ToDoDao) {
