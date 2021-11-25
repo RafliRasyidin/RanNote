@@ -9,13 +9,25 @@
         android:name="com.rasyidin.rannote.ui.feature.note.NoteFragment"
         tools:layout="@layout/fragment_note" >
         <action
-            android:id="@+id/action_noteFragment_to_addUpdateNoteActivity"
-            app:destination="@id/addUpdateNoteActivity" />
+            android:id="@+id/action_noteFragment_to_detailNoteFragment"
+            app:destination="@id/detailNoteFragment"
+            app:enterAnim="@anim/slide_left"
+            app:exitAnim="@anim/wait_anim"
+            app:popEnterAnim="@anim/wait_anim"
+            app:popExitAnim="@anim/slide_right" />
     </fragment>
     <fragment
         android:id="@+id/todoFragment"
         android:name="com.rasyidin.rannote.ui.feature.todo.TodoFragment"
-        tools:layout="@layout/fragment_todo" />
+        tools:layout="@layout/fragment_todo" >
+        <action
+            android:id="@+id/action_todoFragment_to_detailAddTodoFragment"
+            app:destination="@id/detailAddTodoFragment"
+            app:enterAnim="@anim/slide_left"
+            app:exitAnim="@anim/wait_anim"
+            app:popEnterAnim="@anim/wait_anim"
+            app:popExitAnim="@anim/slide_right"/>
+    </fragment>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.rasyidin.rannote.ui.feature.setting.AboutFragment"
@@ -33,18 +45,18 @@
         android:name="com.rasyidin.rannote.ui.feature.note.HomeActivity"
         android:label="activity_home"
         tools:layout="@layout/activity_home" />
-    <activity
-        android:id="@+id/addUpdateNoteActivity"
-        android:name="com.rasyidin.rannote.ui.feature.note.AddUpdateNoteActivity"
-        android:label="activity_add_update_note"
-        tools:layout="@layout/activity_add_update_note" >
+    <fragment
+        android:id="@+id/detailAddTodoFragment"
+        android:name="com.rasyidin.rannote.ui.feature.todo.DetailAddTodoFragment"
+        android:label="fragment_detail_add_todo"
+        tools:layout="@layout/fragment_detail_add_todo" />
+    <fragment
+        android:id="@+id/detailNoteFragment"
+        android:name="com.rasyidin.rannote.ui.feature.note.DetailNoteFragment"
+        android:label="DetailNoteFragment"
+        tools:layout="@layout/fragment_detail_note">
         <argument
             android:name="note"
             app:argType="com.rasyidin.rannote.core.domain.model.note.Note" />
-    </activity>
-    <activity
-        android:id="@+id/addUpdateTodoActivity"
-        android:name="com.rasyidin.rannote.ui.feature.todo.AddUpdateTodoActivity"
-        android:label="activity_add_update_todo"
-        tools:layout="@layout/activity_add_update_todo" />
+    </fragment>
 </navigation>

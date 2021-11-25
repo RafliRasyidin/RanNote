@@ -1,26 +1,51 @@
 package com.rasyidin.rannote.ui.feature.note
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.rasyidin.rannote.core.domain.model.note.Note
 import com.rasyidin.rannote.core.domain.usecase.note.INoteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class NoteViewModel @Inject constructor(private val noteUseCase: INoteUseCase) : ViewModel() {
+class
+NoteViewModel @Inject constructor(private val noteUseCase: INoteUseCase) : ViewModel() {
 
-    fun getAllNotesOrderByDateDesc() = noteUseCase.getAllNotesOrderByDateDesc().asLiveData()
+    val listNotesOrderByDateDesc =
+        noteUseCase.listNotesOrderByDateDesc
 
-    fun getAllNotesOrderByDateAsc() = noteUseCase.getAllNotesOrderByDateAsc().asLiveData()
+    val listNotesOrderByDateAsc =
+        noteUseCase.listNotesOrderByDateAsc
 
-    fun getAllNotesOrderByTitleDesc() = noteUseCase.getAllNotesOrderByTitleDesc().asLiveData()
+    val listNotesOrderByTitleDesc =
+        noteUseCase.listNotesOrderByTitleDesc
 
-    fun getAllNotesOrderByTitleAsc() = noteUseCase.getAllNotesOrderByTitleAsc().asLiveData()
+    val listNotesOrderByTitleAsc =
+        noteUseCase.listNotesOrderByTitleAsc
 
-    fun searchNotes(query: String) = noteUseCase.searchNoteByTitleOrDesc(query).asLiveData()
+    val searchNotes = noteUseCase.searchNotes
+
+    fun getAllNotesOrderByDateDesc() = viewModelScope.launch(Dispatchers.IO) {
+        noteUseCase.getAllNotesOrderByDateDesc(viewModelScope)
+    }
+
+    fun getAllNotesOrderByDateAsc() = viewModelScope.launch(Dispatchers.IO) {
+        noteUseCase.getAllNotesOrderByDateAsc(viewModelScope)
+    }
+
+    fun getAllNotesOrderByTitleDesc() = viewModelScope.launch(Dispatchers.IO) {
+        noteUseCase.getAllNotesOrderByTitleDesc(viewModelScope)
+    }
+
+    fun getAllNotesOrderByTitleAsc() = viewModelScope.launch(Dispatchers.IO) {
+        noteUseCase.getAllNotesOrderByTitleAsc(viewModelScope)
+    }
+
+    fun searchNotes(query: String) = viewModelScope.launch {
+        noteUseCase.searchNoteByTitleOrDesc(query, viewModelScope)
+    }
 
     fun saveNote(note: Note) = viewModelScope.launch {
         noteUseCase.saveNote(note)

@@ -2,30 +2,32 @@ package com.rasyidin.rannote.ui.feature.note
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.LayoutInflater
+import android.util.Log
 import android.view.View
-import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.distinctUntilChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.paging.cachedIn
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.rasyidin.rannote.R
+import com.rasyidin.rannote.core.utils.onFailure
+import com.rasyidin.rannote.core.utils.onSuccess
 import com.rasyidin.rannote.databinding.FragmentNoteBinding
 import com.rasyidin.rannote.di.OnBoardingPreference
 import com.rasyidin.rannote.ui.adapter.note.NoteAdapter
 import com.rasyidin.rannote.ui.base.BaseFragment
-import com.rasyidin.rannote.ui.feature.note.AddUpdateNoteActivity.Companion.NOTE
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.debounce
 import javax.inject.Inject
 
+@FlowPreview
 @AndroidEntryPoint
 class NoteFragment : BaseFragment<FragmentNoteBinding>(FragmentNoteBinding::inflate) {
 
@@ -36,15 +38,6 @@ class NoteFragment : BaseFragment<FragmentNoteBinding>(FragmentNoteBinding::infl
 
     private val noteAdapter: NoteAdapter by lazy {
         NoteAdapter()
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        (activity as AppCompatActivity).supportActionBar?.title = null
-        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,10 +54,16 @@ class NoteFragment : BaseFragment<FragmentNoteBinding>(FragmentNoteBinding::infl
         navigateToDetail()
 
         sortNotes()
+
+        observeSearchedNotes()
+
     }
 
     override fun onResume() {
         super.onResume()
+
+        (activity as AppCompatActivity).supportActionBar?.show()
+        (activity as AppCompatActivity).supportActionBar?.title = null
         val navBar =
             (activity as AppCompatActivity).findViewById<BottomNavigationView>(R.id.bot_nav_view)
         navBar.visibility = View.VISIBLE
@@ -96,20 +95,26 @@ class NoteFragment : BaseFragment<FragmentNoteBinding>(FragmentNoteBinding::infl
         binding.imgSort.setOnClickListener {
             when {
                 isOrderByDateDesc -> {
-                    viewModel.getAllNotesOrderByDateDesc().observe(viewLifecycleOwner) { notes ->
-                        lifecycleScope.launchWhenCreated {
-                            noteAdapter.submitData(notes)
-                        }
-                    }
+                    subscribeToObserver()
                     isOrderByDateDesc = false
                     isOrderByDateAsc = true
                     isOrderByTitleAsc = false
                     isOrderByTitleDesc = false
                 }
                 isOrderByDateAsc -> {
-                    viewModel.getAllNotesOrderByDateAsc().observe(viewLifecycleOwner) { notes ->
-                        lifecycleScope.launchWhenCreated {
-                            noteAdapter.submitData(notes)
+                    viewModel.getAllNotesOrderByDateAsc()
+                    lifecycleScope.launchWhenCreated {
+                        viewModel.listNotesOrderByDateAsc.collect { resultState ->
+                            resultState.onSuccess { resultData ->
+                                lifecycleScope.launchWhenCreated {
+                                    noteAdapter.submitData(resultData)
+                                }
+                            }
+                            resultState.onFailure {
+                                Toast.makeText(requireActivity(), it.message, Toast.LENGTH_SHORT)
+                                    .show()
+                                Log.e("Error", "Error ${it.message}")
+                            }
                         }
                     }
                     isOrderByDateDesc = false
@@ -118,9 +123,19 @@ class NoteFragment : BaseFragment<FragmentNoteBinding>(FragmentNoteBinding::infl
                     isOrderByTitleDesc = false
                 }
                 isOrderByTitleAsc -> {
-                    viewModel.getAllNotesOrderByTitleAsc().observe(viewLifecycleOwner) { notes ->
-                        lifecycleScope.launchWhenCreated {
-                            noteAdapter.submitData(notes)
+                    viewModel.getAllNotesOrderByTitleAsc()
+                    lifecycleScope.launchWhenCreated {
+                        viewModel.listNotesOrderByTitleAsc.collect { resultState ->
+                            resultState.onSuccess { resultData ->
+                                lifecycleScope.launchWhenCreated {
+                                    noteAdapter.submitData(resultData)
+                                }
+                            }
+                            resultState.onFailure {
+                                Toast.makeText(requireActivity(), it.message, Toast.LENGTH_SHORT)
+                                    .show()
+                                Log.e("Error", "Error ${it.message}")
+                            }
                         }
                     }
                     isOrderByDateDesc = false
@@ -129,9 +144,19 @@ class NoteFragment : BaseFragment<FragmentNoteBinding>(FragmentNoteBinding::infl
                     isOrderByTitleDesc = true
                 }
                 isOrderByTitleDesc -> {
-                    viewModel.getAllNotesOrderByTitleDesc().observe(viewLifecycleOwner) { notes ->
-                        lifecycleScope.launchWhenCreated {
-                            noteAdapter.submitData(notes)
+                    viewModel.getAllNotesOrderByTitleDesc()
+                    lifecycleScope.launchWhenCreated {
+                        viewModel.listNotesOrderByTitleDesc.collect { resultState ->
+                            resultState.onSuccess { resultData ->
+                                lifecycleScope.launchWhenCreated {
+                                    noteAdapter.submitData(resultData)
+                                }
+                            }
+                            resultState.onFailure {
+                                Toast.makeText(requireActivity(), it.message, Toast.LENGTH_SHORT)
+                                    .show()
+                                Log.e("Error", "Error ${it.message}")
+                            }
                         }
                     }
                     isOrderByDateDesc = true
@@ -147,17 +172,46 @@ class NoteFragment : BaseFragment<FragmentNoteBinding>(FragmentNoteBinding::infl
     private fun navigateToDetail() {
         noteAdapter.onItemClickListener = { note ->
             val args = Bundle().apply {
-                putParcelable(NOTE, note)
+                putParcelable(DetailNoteFragment.ARG_NOTE, note)
             }
-            findNavController().navigate(R.id.action_noteFragment_to_addUpdateNoteActivity, args)
+            findNavController().navigate(R.id.action_noteFragment_to_detailNoteFragment, args)
         }
     }
 
     private fun subscribeToObserver() {
-        viewModel.getAllNotesOrderByDateDesc().observe(viewLifecycleOwner) { notes ->
-            lifecycleScope.launch {
-                noteAdapter.submitData(notes)
-            }
+        viewModel.getAllNotesOrderByDateDesc()
+        lifecycleScope.launchWhenCreated {
+            viewModel.listNotesOrderByDateDesc
+                .collect { resultState ->
+                    resultState.onSuccess { resultData ->
+                        lifecycleScope.launchWhenCreated {
+                            noteAdapter.submitData(resultData)
+                        }
+                    }
+                    resultState.onFailure {
+                        Toast.makeText(requireActivity(), it.message, Toast.LENGTH_SHORT).show()
+                        Log.e(TAG, "Error ${it.message}")
+                    }
+                }
+        }
+    }
+
+    private fun observeSearchedNotes() {
+        lifecycleScope.launchWhenCreated {
+            viewModel.searchNotes
+                .debounce(500)
+                .collect { resultState ->
+                    resultState.onSuccess { data ->
+                        lifecycleScope.launchWhenCreated {
+                            noteAdapter.submitData(data)
+                        }
+                    }
+
+                    resultState.onFailure {
+                        Toast.makeText(requireActivity(), it.message, Toast.LENGTH_SHORT).show()
+                        Log.e(TAG, "Error ${it.message}")
+                    }
+                }
         }
     }
 
@@ -171,12 +225,7 @@ class NoteFragment : BaseFragment<FragmentNoteBinding>(FragmentNoteBinding::infl
                 if (newText.isEmpty()) {
                     subscribeToObserver()
                 } else {
-                    viewModel.searchNotes(newText).cachedIn(lifecycleScope).distinctUntilChanged()
-                        .observe(viewLifecycleOwner) {
-                            lifecycleScope.launchWhenCreated {
-                                noteAdapter.submitData(it)
-                            }
-                        }
+                    viewModel.searchNotes("%$newText%")
                 }
                 return true
             }
@@ -186,5 +235,10 @@ class NoteFragment : BaseFragment<FragmentNoteBinding>(FragmentNoteBinding::infl
     override fun onDestroyView() {
         super.onDestroyView()
         _binding?.rvNote?.adapter = null
+        _binding = null
+    }
+
+    companion object {
+        private val TAG = NoteFragment::class.simpleName
     }
 }

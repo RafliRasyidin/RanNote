@@ -2,49 +2,119 @@ package com.rasyidin.rannote.core.data.repository
 
 import androidx.paging.PagingData
 import androidx.paging.map
-import com.rasyidin.rannote.core.data.source.local.note.NoteLocalDataSource
+import com.rasyidin.rannote.core.data.source.local.NoteLocalDataSource
+import com.rasyidin.rannote.core.domain.ResultState
 import com.rasyidin.rannote.core.domain.model.note.Note
 import com.rasyidin.rannote.core.domain.repository.INoteRepository
-import com.rasyidin.rannote.core.utils.toNote
-import com.rasyidin.rannote.core.utils.toNoteEntity
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import com.rasyidin.rannote.core.utils.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 class NoteRepository @Inject constructor(
     private val noteLocalDataSource: NoteLocalDataSource,
 ) : INoteRepository {
 
-    override fun getAllNotesOrderByDateDesc(): Flow<PagingData<Note>> {
-        return noteLocalDataSource.getAllNotesOrderByDateDesc().flow.map { pagingData ->
-            pagingData.map {
-                it.toNote()
+    private val _listNotesOrderByDateDesc: MutableStateFlow<ResultState<PagingData<Note>>> = idle()
+    private val _listNotesOrderByDateAsc: MutableStateFlow<ResultState<PagingData<Note>>> = idle()
+    private val _listNotesOrderByTitleDesc: MutableStateFlow<ResultState<PagingData<Note>>> = idle()
+    private val _listNotesOrderByTitleAsc: MutableStateFlow<ResultState<PagingData<Note>>> = idle()
+    private val _searchNotes: MutableSharedFlow<ResultState<PagingData<Note>>> = idle()
+
+    override val listNotesOrderByDateDesc: StateFlow<ResultState<PagingData<Note>>>
+        get() = _listNotesOrderByDateDesc
+
+    override val listNotesOrderByDateAsc: StateFlow<ResultState<PagingData<Note>>>
+        get() = _listNotesOrderByDateAsc
+
+    override val listNotesOrderByTitleDesc: StateFlow<ResultState<PagingData<Note>>>
+        get() = _listNotesOrderByTitleDesc
+
+    override val listNotesOrderByTitleAsc: StateFlow<ResultState<PagingData<Note>>>
+        get() = _listNotesOrderByTitleAsc
+
+    override val searchNotes: SharedFlow<ResultState<PagingData<Note>>>
+        get() = _searchNotes
+
+    override suspend fun getAllNotesOrderByDateDesc(coroutineScope: CoroutineScope) {
+        noteLocalDataSource.getAllNotesOrderByDateDesc(coroutineScope).collect { pagingData ->
+            fetch {
+                pagingData
+            }.map { result ->
+                mapResult(result) {
+                    this.map { noteEntity ->
+                        noteEntity.toNote()
+                    }
+                }
+            }.collectLatest { result ->
+                _listNotesOrderByDateDesc.value = result
             }
         }
     }
 
-    override fun getAllNotesOrderByDateAsc(): Flow<PagingData<Note>> {
-        return noteLocalDataSource.getAllNotesOrderByDateAsc().flow.map { pagingData ->
-            pagingData.map { it.toNote() }
+    override suspend fun getAllNotesOrderByDateAsc(coroutineScope: CoroutineScope) {
+        noteLocalDataSource.getAllNotesOrderByDateAsc(coroutineScope).collect { pagingData ->
+            fetch {
+                pagingData
+            }.map { result ->
+                mapResult(result) {
+                    this.map { noteEntity ->
+                        noteEntity.toNote()
+                    }
+                }
+            }.collectLatest { result ->
+                _listNotesOrderByDateAsc.value = result
+            }
         }
     }
 
-    override fun getAllNotesOrderByTitleDesc(): Flow<PagingData<Note>> {
-        return  noteLocalDataSource.getAllNotesOrderByTitleDesc().flow.map { pagingData ->
-            pagingData.map { it.toNote() }
+    override suspend fun getAllNotesOrderByTitleDesc(coroutineScope: CoroutineScope) {
+        noteLocalDataSource.getAllNotesOrderByTitleDesc(coroutineScope).collect { pagingData ->
+            fetch {
+                pagingData
+            }.map { result ->
+                mapResult(result) {
+                    this.map { noteEntity ->
+                        noteEntity.toNote()
+                    }
+                }
+            }.collectLatest { result ->
+                _listNotesOrderByTitleDesc.value = result
+            }
         }
     }
 
-    override fun getAllNotesOrderByTitleAsc(): Flow<PagingData<Note>> {
-        return noteLocalDataSource.getAllNotesOrderByTitleAsc().flow.map { pagingData ->
-            pagingData.map { it.toNote() }
+    override suspend fun getAllNotesOrderByTitleAsc(coroutineScope: CoroutineScope) {
+        noteLocalDataSource.getAllNotesOrderByTitleAsc(coroutineScope).collect { pagingData ->
+            fetch {
+                pagingData
+            }.map { result ->
+                mapResult(result) {
+                    this.map { noteEntity ->
+                        noteEntity.toNote()
+                    }
+                }
+            }.collectLatest { result ->
+                _listNotesOrderByTitleAsc.value = result
+            }
         }
     }
 
-    override fun searchNoteByTitleOrDesc(query: String): Flow<PagingData<Note>> {
-        return noteLocalDataSource.searchNoteByTitleOrDesc(query).flow.map { notesEntity ->
-            notesEntity.map {
-                it.toNote()
+    override suspend fun searchNoteByTitleOrDesc(
+        query: String,
+        coroutineScope: CoroutineScope
+    ){
+        noteLocalDataSource.searchNoteByTitleOrDesc(query, coroutineScope).collect { pagingData ->
+            fetch {
+                pagingData
+            }.map { result ->
+                mapResult(result) {
+                    this.map { noteEntity ->
+                        noteEntity.toNote()
+                    }
+                }
+            }.collectLatest { result ->
+                _searchNotes.emit(result)
             }
         }
     }
