@@ -9,7 +9,7 @@ import com.rasyidin.rannote.R
 import com.rasyidin.rannote.core.domain.model.note.Note
 import com.rasyidin.rannote.databinding.ActivityHomeBinding
 import com.rasyidin.rannote.ui.base.BaseActivity
-import com.rasyidin.rannote.ui.feature.note.AddUpdateNoteActivity.Companion.NOTE
+import com.rasyidin.rannote.ui.feature.note.DetailNoteFragment.Companion.ARG_NOTE
 import com.rasyidin.rannote.ui.feature.note.dialog.AddDialog
 import com.rasyidin.rannote.ui.feature.note.dialog.AddDialogListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,13 +39,13 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
             AddDialog(this, object : AddDialogListener {
                 override fun navigateToAddDetailNote(note: Note) {
                     val args = Bundle().apply {
-                        putParcelable(NOTE, note)
+                        putParcelable(ARG_NOTE, note)
                     }
-                    navNoteController.navigate(R.id.addUpdateNoteActivity, args)
+                    navNoteController.navigate(R.id.detailNoteFragment, args)
                 }
 
                 override fun navigateToAddDetailTodo() {
-                    navNoteController.navigate(R.id.addUpdateTodoActivity)
+                    navNoteController.navigate(R.id.detailAddTodoFragment)
                 }
             }).show()
         }
