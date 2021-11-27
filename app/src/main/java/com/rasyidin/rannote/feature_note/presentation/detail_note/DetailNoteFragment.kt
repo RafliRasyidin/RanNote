@@ -1,4 +1,4 @@
-package com.rasyidin.rannote.ui.feature.note
+package com.rasyidin.rannote.feature_note.presentation.detail_note
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -15,13 +15,14 @@ import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.rasyidin.rannote.R
-import com.rasyidin.rannote.core.domain.model.note.ColorPicker
-import com.rasyidin.rannote.core.domain.model.note.Note
 import com.rasyidin.rannote.core.utils.Constants.colorTheme
 import com.rasyidin.rannote.databinding.FragmentDetailNoteBinding
+import com.rasyidin.rannote.feature_note.domain.model.ColorPicker
+import com.rasyidin.rannote.feature_note.domain.model.Note
 import com.rasyidin.rannote.ui.base.BaseFragment
 import com.rasyidin.rannote.ui.helper.getCurrentDate
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Singleton
 
 @AndroidEntryPoint
@@ -38,7 +39,7 @@ class DetailNoteFragment :
     @Singleton
     private var note: Note = Note()
 
-    private val noteViewModel: NoteViewModel by viewModels()
+    private val noteViewModel: DetailNoteViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -134,6 +135,23 @@ class DetailNoteFragment :
         getNotesFromView()
         lifecycleScope.launchWhenCreated {
             noteViewModel.saveNote(note)
+
+        }
+    }
+
+    private fun observeEvent() {
+        lifecycleScope.launchWhenCreated {
+            noteViewModel.eventFlow.collectLatest { event ->
+                when (event) {
+                    is DetailNoteViewModel.UiEvent.GetException -> {
+                        Toast.makeText(requireActivity(), event.messageError, Toast.LENGTH_SHORT).show()
+                    }
+                    is DetailNoteViewModel.UiEvent.SaveNote -> Unit
+                    is DetailNoteViewModel.UiEvent.DeleteNote -> {
+                        findNavController().popBackStack()
+                    }
+                }
+            }
         }
     }
 
@@ -143,8 +161,8 @@ class DetailNoteFragment :
             lifecycleScope.launchWhenCreated {
                 noteViewModel.deleteNote(note)
                 isDeleted = true
+                observeEvent()
             }
-            findNavController().popBackStack()
         }
     }
 

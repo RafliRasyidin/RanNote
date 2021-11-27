@@ -1,10 +1,10 @@
 package com.rasyidin.rannote.core.di
 
-import com.rasyidin.rannote.core.data.repository.NoteRepository
-import com.rasyidin.rannote.core.data.source.local.NoteLocalDataSource
-import com.rasyidin.rannote.core.data.source.local.room.RanNoteDatabase
-import com.rasyidin.rannote.core.data.source.local.room.dao.NoteDao
-import com.rasyidin.rannote.core.domain.repository.INoteRepository
+import com.rasyidin.rannote.feature_note.data.repository.NoteRepositoryImpl
+import com.rasyidin.rannote.feature_note.data.source.local.NoteLocalDataSource
+import com.rasyidin.rannote.feature_note.data.source.local.RanNoteDatabase
+import com.rasyidin.rannote.feature_note.data.source.local.NoteDao
+import com.rasyidin.rannote.feature_note.domain.repository.NoteRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,7 +26,7 @@ object NoteRepositoryModule {
 
     @Provides
     @Singleton
-    fun providesNoteRepository(noteLocalDataSource: NoteLocalDataSource): INoteRepository =
-        NoteRepository(noteLocalDataSource)
+    fun providesNoteRepository(noteLocalDataSource: NoteLocalDataSource): NoteRepository =
+        NoteRepositoryImpl(noteLocalDataSource)
 
 }

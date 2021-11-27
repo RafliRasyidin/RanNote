@@ -1,10 +1,8 @@
-package com.rasyidin.rannote.ui.feature.note
+package com.rasyidin.rannote.feature_note.presentation.note
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
@@ -15,16 +13,15 @@ import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.rasyidin.rannote.R
-import com.rasyidin.rannote.core.utils.onFailure
-import com.rasyidin.rannote.core.utils.onSuccess
 import com.rasyidin.rannote.databinding.FragmentNoteBinding
-import com.rasyidin.rannote.di.OnBoardingPreference
+import com.rasyidin.rannote.core.di.OnBoardingPreference
+import com.rasyidin.rannote.feature_note.domain.util.SortUtils
+import com.rasyidin.rannote.feature_note.presentation.detail_note.DetailNoteFragment
 import com.rasyidin.rannote.ui.adapter.note.NoteAdapter
 import com.rasyidin.rannote.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 @FlowPreview
@@ -36,16 +33,15 @@ class NoteFragment : BaseFragment<FragmentNoteBinding>(FragmentNoteBinding::infl
 
     private val viewModel: NoteViewModel by viewModels()
 
-    private val noteAdapter: NoteAdapter by lazy {
-        NoteAdapter()
-    }
+    @Inject
+    lateinit var noteAdapter: NoteAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setupAdapter()
 
-        subscribeToObserver()
+        observeNotes()
 
         setUsername()
 
@@ -54,9 +50,6 @@ class NoteFragment : BaseFragment<FragmentNoteBinding>(FragmentNoteBinding::infl
         navigateToDetail()
 
         sortNotes()
-
-        observeSearchedNotes()
-
     }
 
     override fun onResume() {
@@ -79,6 +72,9 @@ class NoteFragment : BaseFragment<FragmentNoteBinding>(FragmentNoteBinding::infl
     private fun setupAdapter() = binding.rvNote.apply {
         layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         adapter = noteAdapter
+        setOnScrollChangeListener { view, i, i2, i3, i4 ->
+
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -95,70 +91,28 @@ class NoteFragment : BaseFragment<FragmentNoteBinding>(FragmentNoteBinding::infl
         binding.imgSort.setOnClickListener {
             when {
                 isOrderByDateDesc -> {
-                    subscribeToObserver()
+                    viewModel.getNotes(SortUtils.DATE_DESC)
                     isOrderByDateDesc = false
                     isOrderByDateAsc = true
                     isOrderByTitleAsc = false
                     isOrderByTitleDesc = false
                 }
                 isOrderByDateAsc -> {
-                    viewModel.getAllNotesOrderByDateAsc()
-                    lifecycleScope.launchWhenCreated {
-                        viewModel.listNotesOrderByDateAsc.collect { resultState ->
-                            resultState.onSuccess { resultData ->
-                                lifecycleScope.launchWhenCreated {
-                                    noteAdapter.submitData(resultData)
-                                }
-                            }
-                            resultState.onFailure {
-                                Toast.makeText(requireActivity(), it.message, Toast.LENGTH_SHORT)
-                                    .show()
-                                Log.e("Error", "Error ${it.message}")
-                            }
-                        }
-                    }
+                    viewModel.getNotes(SortUtils.DATE_ASC)
                     isOrderByDateDesc = false
                     isOrderByDateAsc = false
                     isOrderByTitleAsc = true
                     isOrderByTitleDesc = false
                 }
                 isOrderByTitleAsc -> {
-                    viewModel.getAllNotesOrderByTitleAsc()
-                    lifecycleScope.launchWhenCreated {
-                        viewModel.listNotesOrderByTitleAsc.collect { resultState ->
-                            resultState.onSuccess { resultData ->
-                                lifecycleScope.launchWhenCreated {
-                                    noteAdapter.submitData(resultData)
-                                }
-                            }
-                            resultState.onFailure {
-                                Toast.makeText(requireActivity(), it.message, Toast.LENGTH_SHORT)
-                                    .show()
-                                Log.e("Error", "Error ${it.message}")
-                            }
-                        }
-                    }
+                    viewModel.getNotes(SortUtils.TITLE_ASC)
                     isOrderByDateDesc = false
                     isOrderByDateAsc = false
                     isOrderByTitleAsc = false
                     isOrderByTitleDesc = true
                 }
                 isOrderByTitleDesc -> {
-                    viewModel.getAllNotesOrderByTitleDesc()
-                    lifecycleScope.launchWhenCreated {
-                        viewModel.listNotesOrderByTitleDesc.collect { resultState ->
-                            resultState.onSuccess { resultData ->
-                                lifecycleScope.launchWhenCreated {
-                                    noteAdapter.submitData(resultData)
-                                }
-                            }
-                            resultState.onFailure {
-                                Toast.makeText(requireActivity(), it.message, Toast.LENGTH_SHORT)
-                                    .show()
-                                Log.e("Error", "Error ${it.message}")
-                            }
-                        }
-                    }
+                    viewModel.getNotes(SortUtils.TITLE_DESC)
                     isOrderByDateDesc = true
                     isOrderByDateAsc = false
                     isOrderByTitleAsc = false
@@ -178,40 +132,13 @@ class NoteFragment : BaseFragment<FragmentNoteBinding>(FragmentNoteBinding::infl
         }
     }
 
-    private fun subscribeToObserver() {
-        viewModel.getAllNotesOrderByDateDesc()
-        lifecycleScope.launchWhenCreated {
-            viewModel.listNotesOrderByDateDesc
-                .collect { resultState ->
-                    resultState.onSuccess { resultData ->
-                        lifecycleScope.launchWhenCreated {
-                            noteAdapter.submitData(resultData)
-                        }
-                    }
-                    resultState.onFailure {
-                        Toast.makeText(requireActivity(), it.message, Toast.LENGTH_SHORT).show()
-                        Log.e(TAG, "Error ${it.message}")
-                    }
+    private fun observeNotes() {
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            viewModel.notes.collectLatest { pagingData ->
+                lifecycleScope.launchWhenCreated {
+                    noteAdapter.submitData(pagingData)
                 }
-        }
-    }
-
-    private fun observeSearchedNotes() {
-        lifecycleScope.launchWhenCreated {
-            viewModel.searchNotes
-                .debounce(500)
-                .collect { resultState ->
-                    resultState.onSuccess { data ->
-                        lifecycleScope.launchWhenCreated {
-                            noteAdapter.submitData(data)
-                        }
-                    }
-
-                    resultState.onFailure {
-                        Toast.makeText(requireActivity(), it.message, Toast.LENGTH_SHORT).show()
-                        Log.e(TAG, "Error ${it.message}")
-                    }
-                }
+            }
         }
     }
 
@@ -223,7 +150,7 @@ class NoteFragment : BaseFragment<FragmentNoteBinding>(FragmentNoteBinding::infl
 
             override fun onQueryTextChange(newText: String): Boolean {
                 if (newText.isEmpty()) {
-                    subscribeToObserver()
+                    viewModel.getNotes(SortUtils.DATE_DESC)
                 } else {
                     viewModel.searchNotes("%$newText%")
                 }
