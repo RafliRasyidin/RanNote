@@ -6,58 +6,75 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:background="@color/colorBackground"
-    tools:context=".ui.feature.note.NoteFragment">
+    tools:context=".feature_note.presentation.note.NoteFragment">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tv_hi_user"
-            style="@style/TextAppearance.App.Headline5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:text="@string/hi" />
-
-        <TextView
-            android:id="@+id/tv_subtitle_hi_user"
-            style="@style/TextAppearance.App.Body2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/subtitle_hi_user" />
-
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/sv_note"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/bg_shape"
-            app:queryHint="@string/hint_search" />
+            android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/img_sort"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_gravity="end"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            app:srcCompat="@drawable/ic_sort"
-            app:tint="@color/colorAccent"
-            tools:ignore="ContentDescription" />
+            <TextView
+                android:id="@+id/tv_hi_user"
+                style="@style/TextAppearance.App.Headline5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/hi"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_note"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="64dp"
-            tools:listitem="@layout/item_list_note" />
+            <TextView
+                android:id="@+id/tv_subtitle_hi_user"
+                style="@style/TextAppearance.App.Body2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="@string/subtitle_hi_user"
+                app:layout_constraintEnd_toEndOf="@id/tv_hi_user"
+                app:layout_constraintStart_toStartOf="@id/tv_hi_user"
+                app:layout_constraintTop_toBottomOf="@+id/tv_hi_user" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/sv_note"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_subtitle_hi_user"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@drawable/bg_shape"
+                app:queryHint="@string/hint_search" />
+
+            <ImageView
+                android:id="@+id/img_sort"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintWidth_percent=".1"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:srcCompat="@drawable/ic_sort"
+                app:tint="@color/colorAccent"
+                app:layout_constraintTop_toBottomOf="@id/sv_note"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_note"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/img_sort"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="64dp"
+                tools:listitem="@layout/item_list_note" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>
