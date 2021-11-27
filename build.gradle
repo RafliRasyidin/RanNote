@@ -1,6 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    ext.kotlin_version = "1.5.31"
+    ext.kotlin_version = "1.6.0"
     ext.hilt_version = '2.38.1'
     ext.navigationVersion = '2.3.5'
     repositories {
@@ -22,11 +22,10 @@ ext {
     shimmerVersion = '0.5.0'
     lottieVersion = '4.1.0'
     glideVersion = '4.12.0'
-    pagingVersion = '3.0.1'
+    pagingVersion = '3.1.0'
     appIntroVersion = '6.1.0'
 
     //Core
-    koinVersion = '3.0.1'
     coroutinesVersion = '1.5.0'
     lifecycleVersion = '2.4.0'
     retrofitVersion = '2.9.0'
