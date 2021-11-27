@@ -1,13 +1,8 @@
 package com.rasyidin.rannote.core.utils
 
-import com.rasyidin.rannote.core.domain.model.note.ColorPicker
+import com.rasyidin.rannote.feature_note.domain.model.ColorPicker
 
 object Constants {
-
-    const val DATE_DESC = "DateDesc"
-    const val DATE_ASC = "DateAsc"
-    const val TITLE_DESC = "TitleDesc"
-    const val TITLE_ASC = "TitleAsc"
 
     const val DATABASE_NAME = "ran_note.db"
 

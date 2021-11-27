@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import com.github.appintro.AppIntro2
 import com.github.appintro.AppIntroFragment
 import com.rasyidin.rannote.R
-import com.rasyidin.rannote.core.domain.model.intro.IntroSlideData.DATA_SLIDE
-import com.rasyidin.rannote.ui.feature.note.HomeActivity
+import com.rasyidin.rannote.feature_intro.domain.model.IntroSlide.Companion.DATA_SLIDE
+import com.rasyidin.rannote.feature_note.presentation.note.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -6,7 +6,7 @@
     app:startDestination="@id/noteFragment">
     <fragment
         android:id="@+id/noteFragment"
-        android:name="com.rasyidin.rannote.ui.feature.note.NoteFragment"
+        android:name="com.rasyidin.rannote.feature_note.presentation.note.NoteFragment"
         tools:layout="@layout/fragment_note" >
         <action
             android:id="@+id/action_noteFragment_to_detailNoteFragment"
@@ -42,7 +42,7 @@
         android:label="SettingFragment" />
     <activity
         android:id="@+id/homeActivity"
-        android:name="com.rasyidin.rannote.ui.feature.note.HomeActivity"
+        android:name="com.rasyidin.rannote.feature_note.presentation.note.HomeActivity"
         android:label="activity_home"
         tools:layout="@layout/activity_home" />
     <fragment
@@ -52,11 +52,11 @@
         tools:layout="@layout/fragment_detail_add_todo" />
     <fragment
         android:id="@+id/detailNoteFragment"
-        android:name="com.rasyidin.rannote.ui.feature.note.DetailNoteFragment"
+        android:name="com.rasyidin.rannote.feature_note.presentation.detail_note.DetailNoteFragment"
         android:label="DetailNoteFragment"
         tools:layout="@layout/fragment_detail_note">
         <argument
             android:name="note"
-            app:argType="com.rasyidin.rannote.core.domain.model.note.Note" />
+            app:argType="com.rasyidin.rannote.feature_note.domain.model.Note" />
     </fragment>
 </navigation>

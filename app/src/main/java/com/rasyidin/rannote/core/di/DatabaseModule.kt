@@ -2,7 +2,7 @@ package com.rasyidin.rannote.core.di
 
 import android.content.Context
 import androidx.room.Room
-import com.rasyidin.rannote.core.data.source.local.room.RanNoteDatabase
+import com.rasyidin.rannote.feature_note.data.source.local.RanNoteDatabase
 import com.rasyidin.rannote.core.utils.Constants.DATABASE_NAME
 import dagger.Module
 import dagger.Provides

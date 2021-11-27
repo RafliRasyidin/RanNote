@@ -1,8 +1,8 @@
 package com.rasyidin.rannote.core.di
 
-import com.rasyidin.rannote.core.data.source.local.room.RanNoteDatabase
-import com.rasyidin.rannote.core.data.source.local.room.dao.ToDoDao
-import com.rasyidin.rannote.core.data.source.local.TodoLocalDataSource
+import com.rasyidin.rannote.feature_note.data.source.local.RanNoteDatabase
+import com.rasyidin.rannote.feature_todo.data.source.local.ToDoDao
+import com.rasyidin.rannote.feature_todo.data.source.local.TodoLocalDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

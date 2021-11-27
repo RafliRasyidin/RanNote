@@ -5,9 +5,9 @@ import android.view.View
 import android.widget.Toast
 import com.github.appintro.SlidePolicy
 import com.rasyidin.rannote.R
-import com.rasyidin.rannote.core.domain.model.intro.UserPreference
+import com.rasyidin.rannote.feature_intro.domain.model.UserPreference
 import com.rasyidin.rannote.databinding.FragmentOnboardingBinding
-import com.rasyidin.rannote.di.OnBoardingPreference
+import com.rasyidin.rannote.core.di.OnBoardingPreference
 import com.rasyidin.rannote.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import androidx.recyclerview.widget.DiffUtil
 import com.rasyidin.rannote.R
-import com.rasyidin.rannote.core.domain.model.note.Note
+import com.rasyidin.rannote.feature_note.domain.model.Note
 import com.rasyidin.rannote.databinding.ItemListNoteBinding
 import com.rasyidin.rannote.ui.adapter.BasePagingAdapter
 

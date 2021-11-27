@@ -2,7 +2,7 @@ package com.rasyidin.rannote.ui.adapter.note
 
 import android.graphics.Color
 import com.rasyidin.rannote.R
-import com.rasyidin.rannote.core.domain.model.note.ColorPicker
+import com.rasyidin.rannote.feature_note.domain.model.ColorPicker
 import com.rasyidin.rannote.databinding.ItemListColorBinding
 import com.rasyidin.rannote.ui.adapter.BaseAdapter
 

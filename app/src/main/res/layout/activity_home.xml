@@ -5,7 +5,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.feature.note.HomeActivity"
+    tools:context=".feature_note.presentation.note.HomeActivity"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
